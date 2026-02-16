@@ -1,0 +1,40 @@
+baseURL = "http://localhost:1313/"
+languageCode = "zh-cn"
+title = "Zhuocheng Zhu"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  math = true
+
+[params.homeInfoParams]
+  Title = "Zhuocheng Zhu"
+  Content = """
+Biomedical Engineering / Applied Mathematics  
+Personal academic notes & learning archive
+"""
+
+[menu]
+
+  [[menu.main]]
+    name = "Notes"
+    url = "/notes/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = 2
+
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 3
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

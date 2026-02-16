@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>数学分析 on Zhuocheng Zhu</title>
+    <link>http://localhost:1313/notes/math-analysis/</link>
+    <description>Recent content in 数学分析 on Zhuocheng Zhu</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 14 Dec 2025 12:03:53 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/notes/math-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>formulatest</title>
+      <link>http://localhost:1313/notes/math-analysis/formulatest/</link>
+      <pubDate>Sun, 14 Dec 2025 12:03:53 +0800</pubDate>
+      <guid>http://localhost:1313/notes/math-analysis/formulatest/</guid>
+      <description>&lt;p&gt;在数学分析中，我们会遇到很多基础的极限和导数公式。例如，**极限公式**：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;\lim_{x \to 0} \frac{\sin x}{x} = 1&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;这是一个著名的极限公式，它在微积分中有着广泛的应用。&lt;/p&gt;
+&lt;p&gt;## 导数公式&lt;/p&gt;
+&lt;p&gt;导数是描述函数变化的一个重要工具，常见的导数公式如下：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;\frac{d}{dx} \left( e^x \right) = e^x&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;## 积分公式&lt;/p&gt;
+&lt;p&gt;此外，**积分** 也是数学分析中的重要工具。比如：&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;
+&lt;p&gt;\int_0^\infty e^{-x^2} \, dx = \frac{\sqrt{\pi}}{2}&lt;/p&gt;
+&lt;p&gt;$$&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
