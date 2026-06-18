@@ -4,6 +4,8 @@ date: 2026-02-02T12:03:53+08:00
 draft: false
 ---
 
+2025年秋季北京大学《高等代数（I）》课程的听课笔记。
+
 [下载 PDF](/pdf/advanced-algebra.pdf)
 
 ---
@@ -13,7 +15,4 @@ draft: false
 <iframe
   src="/pdf/advanced-algebra.pdf"
   width="100%"
-  height="800px"
-  style="border: 1px solid #ddd; border-radius: 8px;">
-</iframe>
-
+  heigh

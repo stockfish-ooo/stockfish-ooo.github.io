@@ -31,13 +31,13 @@ theme = "PaperMod"
     weight = 2
 
   [[menu.main]]
-    name = "About"
-    url = "/about/"
+    name = "Websites"
+    url = "/websites/"
     weight = 3
 
   [[menu.main]]
-    name = "Websites"
-    url = "/websites/"
+    name = "About"
+    url = "/about/"
     weight = 4
 
 [markup]
