@@ -9,14 +9,19 @@ theme = "PaperMod"
   ShowShareButtons = false
   ShowPostNavLinks = true
   math = true
+  comments = true
   socialIcons = [
     {name = "github", url = "https://github.com/stockfish-ooo"},
     {name = "zhihu", url = "https://www.zhihu.com/people/123456-81-42-65"},
+    {name = "xiaohongshu", url = "https://www.xiaohongshu.com/user/profile/6045dbd40000000001000184"},
   ]
 
 [params.homeInfoParams]
   Title = "Zhuocheng Zhu"
   Content = "Biomedical Engineering / Applied Mathematics\nPersonal academic notes & learning archive\n"
+  imageUrl = "/images/25-12-boya-tower.jpg"
+  imageWidth = 140
+  imageHeight = 140
 
 [menu]
 

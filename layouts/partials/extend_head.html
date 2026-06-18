@@ -2,3 +2,57 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
 {{- end }}
+<style>
+/* ---- Warm accent — break the black-and-white monotony ---- */
+:root {
+    --accent: #c44b3c;
+    --accent-light: #e8c4b8;
+    --bg-warm: #fefaf6;
+}
+.dark {
+    --accent: #e88478;
+    --accent-light: #5a3a32;
+    --bg-warm: #1a1a18;
+}
+body {
+    background: var(--bg-warm);
+}
+.post-content a,
+.entry-content a {
+    color: var(--accent);
+    text-decoration-thickness: 1px;
+}
+.post-content a:hover,
+.entry-content a:hover {
+    text-decoration-color: var(--accent);
+}
+.logo a {
+    color: var(--accent);
+}
+.entry-header h2 a:hover {
+    color: var(--accent);
+}
+.home-avatar {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.home-avatar img {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+.home-avatar img:hover {
+    transform: scale(1.03);
+}
+/* ---- Subtle background pattern ---- */
+.list, .post-single {
+    background-image: url('/images/25-12-flowers.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+    background-color: rgba(254,250,246,0.92);
+}
+.dark .list, .dark .post-single {
+    background-color: rgba(26,26,24,0.94);
+}
+</style>
