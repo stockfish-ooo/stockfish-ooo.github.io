@@ -1,0 +1,110 @@
+======================================================================
+  网站部署常见错误清单 —— 每次 push 前逐条检查
+======================================================================
+
+1.  TOML 配置：不要出现重复的 [params] 块
+    - TOML 同名 table 后出现的会覆盖前面的，不是合并。
+    - 所有 params 必须放在同一个 [params] 块内。
+    - push 前检查：grep -c '\[params\]' hugo.toml，结果必须是 1。
+
+2.  NUL 空字节（0x00）污染
+    - Write 工具写入文件时，有时会在文件末尾附加大量 00 00 00... 空字节。
+    - 后果：Hugo 渲染会输出乱码 �；GitHub Actions 解析 YAML 会直接拒绝执行。
+    - push 前检查（对所有文本文件）：
+      find . -type f \( -name '*.md' -o -name '*.toml' -o -name '*.yml' \
+        -o -name '*.html' -o -name '*.yaml' \) \
+        -not -path './.git/*' -not -path './themes/*' \
+        -exec sh -c 'n=$(tr -dc "\000" < "$1" | wc -c); \
+        [ "$n" -gt 0 ] && echo "NUL($n): $1"' _ {} \;
+    - 如发现 NUL，用 tr -d '\000' < file > file.clean && mv file.clean file 修复。
+
+3.  Hugo 版本与主题兼容性
+    - PaperMod 主题有最低 Hugo 版本要求（当前 >= 0.146.0）。
+    - 锁定版本前先检查：grep min_version themes/PaperMod/theme.toml
+    - push 前检查：grep hugo-version .github/workflows/hugo.yml
+
+4.  Git 子模块（PaperMod）状态
+    - 跨系统操作时（Linux VM ↔ Windows），PaperMod 可能显示所有文件被修改。
+    - push 前检查：cd themes/PaperMod && git status
+    - 如果文件被误标为修改却没有实际改动：git checkout -- .
+
+5.  Hugo 模板中缺失的 partial
+    - PaperMod 新版本可能引用旧版本不存在的 partial（如 google_analytics.html）。
+    - 报错信息："partial xxx not found"
+    - 解决：在 layouts/partials/ 下创建空占位文件。
+
+6.  KaTeX 数学公式渲染
+    - PaperMod 不内置数学公式支持，需手动配置。
+    - KaTeX auto-render 的 $ 有严格的边界检测：$ 前后不能紧挨非英文字符。
+      如 "，$\frac{x}{y}$" 中逗号贴 $，KaTeX 拒绝渲染。
+    - Goldmark 会把 \( 当成转义吃成 (。
+    - 正确方案：用 \\(...\\) 写在 Markdown 里，自定义 JS 渲染函数用 \x5c 表示反斜杠。
+    - push 前检查：确认 layouts/partials/extend_head.html 有 KaTeX CSS+JS
+    - push 前检查：确认 layouts/partials/extend_footer.html 有自定义渲染函数
+
+7.  CDN 的 SRI（完整性哈希）不要随意加
+    - integrity + crossorigin 会让浏览器静默拒绝加载哈希不匹配的脚本。
+    - 除非你完整验证过哈希值，否则去掉 integrity 和 crossorigin 属性。
+
+8.  Hugo --minify 会截断 iframe 属性
+    - Hugo 内置 HTML minifier 会把 height="800px" 截断成 height="800。
+    - 导致 iframe 高度回退到默认极小值（~150px），显示为一条缝。
+    - 解决：CI 中不要加 --minify（PaperMod 资源本身已压缩）。
+
+9.  iframe 标签写成多行可能被各种工具截断
+    - Write 工具、sed、文件系统差异都可能导致多行 iframe 被截断。
+    - 所有 iframe 标签写成单行：
+    <iframe src="..." width="100%" height="800px" style="..."></iframe>
+
+10. Git 索引损坏
+    - 报错："bad signature 0x00000000" / "index file corrupt"
+    - 解决：rm -f .git/index && git reset && git add -A
+
+11. SSH 推送失败
+    - 沙箱环境没有用户的 GitHub SSH 私钥。
+    - 解决：git remote set-url origin https://github.com/用户名/仓库名.git
+    - 用户在本地用 HTTPS + Personal Access Token 推送。
+
+12. Frontmatter 分隔符一致性
+    - +++ (TOML) 和 --- (YAML) 混用虽然 Hugo 都接受，但不规整。
+    - 统一用 --- (YAML)。
+
+13. 页面内容中不要写与 frontmatter title 重复的 ## 标题
+    - Hugo 会自动渲染 frontmatter 中的 title 为页面 h1 标题。
+    - 如果正文第一个就是 ## 同名标题，页面上会出现两个一样的标题。
+
+14. 列表页摘要（summary）要显式写
+    - PaperMod 在列表页自动从正文截取摘要，会洗掉链接、分割线等格式。
+    - 每个 content page 的 frontmatter 里加 summary 字段可避免此问题。
+    - 示例：summary: "这是一段清晰可读的摘要"
+
+15. 内容文件不要复制到错误的目录
+    - 如 math-analysis/advanced-algebra.md 与 linear-algebra/ 下内容完全重复。
+    - 新建文件前先确认其内容该属于哪个目录。
+
+16. GitHub Actions 部署失败静默
+    - 如果 push 后网站没更新，去 Actions 页面看构建日志：
+      https://github.com/stockfish-ooo/stockfish-ooo.github.io/actions
+    - 别只看 "push 成功"，要看 Action 是否绿勾。
+
+======================================================================
+  push 前快速检查命令
+======================================================================
+
+# 1. TOML 唯一 [params]
+grep -c '\[params\]' hugo.toml
+
+# 2. NUL 空字节扫描
+find . -type f \( -name '*.md' -o -name '*.toml' -o -name '*.yml' \) \
+  -not -path './.git/*' -not -path './themes/*' | \
+  while read f; do n=$(tr -dc '\000' < "$f" | wc -c); \
+  [ "$n" -gt 0 ] && echo "NUL($n): $f"; done
+
+# 3. 本地构建测试
+hugo --minify 2>&1 | tail -5
+# 如果用了 --minify，检查 iframe 是否完整：
+grep -r 'height=' public/ | grep -v '800px'
+
+# 4. 检查 git 状态（子模块不应有意外修改）
+cd themes/PaperMod && git status
+======================================================================
