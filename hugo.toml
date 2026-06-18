@@ -9,6 +9,10 @@ theme = "PaperMod"
   ShowShareButtons = false
   ShowPostNavLinks = true
   math = true
+  socialIcons = [
+    {name = "github", url = "https://github.com/stockfish-ooo"},
+    {name = "zhihu", url = "https://www.zhihu.com/people/123456-81-42-65"}
+  ]
 
 [params.homeInfoParams]
   Title = "Zhuocheng Zhu"
