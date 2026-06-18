@@ -13,6 +13,4 @@ draft: false
 
 ## 在线使用
 
-<iframe
-  src="/websites/seismologyreview.html"
-  wi
+<iframe src="/websites/seismologyreview.html" width="100%" height="800px" style="border: 1px solid #ddd; border-radius: 8px;"></iframe>

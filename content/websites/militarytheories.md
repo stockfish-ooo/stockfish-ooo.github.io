@@ -13,6 +13,4 @@ draft: false
 
 ## 在线使用
 
-<iframe
-  src="/websites/militarytheories.html"
-  wi
+<iframe src="/websites/militarytheories.html" width="100%" height="800px" style="border: 1px solid #ddd; border-radius: 8px;"></iframe>

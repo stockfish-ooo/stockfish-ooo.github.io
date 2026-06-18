@@ -12,9 +12,4 @@ draft: false
 
 ## 在线阅读
 
-<iframe
-  src="/pdf/limits-and-continuity.pdf"
-  width="100%"
-  height="800px"
-  style="border: 1px solid #ddd; border-radius: 8px;">
-</iframe>
+<iframe src="/pdf/limits-and-continuity.pdf" width="100%" height="800px" style="border: 1px solid #ddd; border-radius: 8px;"></iframe>
