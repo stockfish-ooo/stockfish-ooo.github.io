@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地震概论 · 期末复习</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+/* ===== Reset & Base ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f9fc;--bg2:#fff;--text:#1a1a2e;--text2:#555;--accent:#e74c3c;--accent2:#c0392b;
+  --hot:#ff006e;--warm:#fb5607;--green:#06d6a0;--border:#e2e6ef;
+  --sidebar-bg:#1a1a2e;--sidebar-text:#c8c8d8;--sidebar-active:#fff;
+  --radius:10px;--shadow:0 2px 12px rgba(0,0,0,.06);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif;
+  --mono:"JetBrains Mono","Fira Code","Cascadia Code",monospace;
+}
+html{scroll-behavior:smooth;font-size:15px}
+body{font-family:var(--font);color:var(--text);background:var(--bg);display:flex;min-height:100vh;line-height:1.7}
+
+/* ===== Sidebar ===== */
+.sidebar{
+  position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);display:flex;flex-direction:column;z-index:100;
+  overflow-y:auto;scrollbar-width:thin;
+}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.brand{display:flex;align-items:center;gap:12px;padding:24px 20px 16px}
+.logo{width:40px;height:40px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+.brand h1{font-size:16px;color:#fff;font-weight:600}
+.brand p{font-size:11px;opacity:.6}
+nav{flex:1;padding:0 12px}
+.nav-section{margin-bottom:8px}
+.nav-title{display:block;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.3);padding:12px 8px 4px;font-weight:600}
+.nav-item{display:block;padding:6px 12px;border-radius:6px;color:var(--sidebar-text);text-decoration:none;font-size:13px;transition:.15s}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.active{background:var(--accent);color:#fff;font-weight:500}
+.progress{padding:16px 20px 24px}
+.progress-label{font-size:11px;display:flex;justify-content:space-between;margin-bottom:6px;opacity:.6}
+.progress-bar{height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--green);border-radius:4px;transition:width .4s}
+
+/* ===== Content ===== */
+.content{margin-left:260px;flex:1;min-width:0}
+.container{max-width:860px;margin:0 auto;padding:40px 48px 80px}
+
+/* ===== Hero ===== */
+.hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:16px;padding:48px 40px;margin-bottom:40px}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.15);padding:4px 14px;border-radius:20px;font-size:12px;margin-bottom:16px}
+.hero-title{font-size:2.4rem;font-weight:800;line-height:1.2;margin-bottom:12px}
+.hero-sub{font-size:15px;opacity:.85;max-width:520px;line-height:1.6}
+.hero-stats{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat b{display:block;font-size:28px;font-weight:800}
+.stat span{font-size:12px;opacity:.7}
+
+/* ===== Headings ===== */
+.chapter{padding-top:20px;margin-bottom:60px;scroll-margin-top:20px}
+.chapter h1{font-size:1.6rem;font-weight:700;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.chapter h2{font-size:1.15rem;font-weight:600;margin:28px 0 12px;color:var(--accent2)}
+.chapter h3{font-size:1rem;font-weight:600;margin:16px 0 8px}
+.chapter p{margin:8px 0}
+
+/* ===== Code ===== */
+code{font-family:var(--mono);background:#eef0fa;padding:1px 6px;border-radius:4px;font-size:.9em;color:var(--accent2)}
+pre{background:#1a1a2e;color:#e8e8f0;padding:14px 18px;border-radius:var(--radius);overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.6;margin:12px 0}
+pre code{background:none;padding:0;color:inherit}
+
+/* ===== Tables ===== */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:14px}
+.tbl th{background:var(--accent);color:#fff;padding:10px 14px;text-align:left;font-weight:500}
+.tbl td{padding:9px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tr:hover td{background:#fef0ef}
+
+/* ===== Callouts ===== */
+.callout{border-radius:var(--radius);padding:16px 20px;margin:16px 0;font-size:14px;line-height:1.7}
+.callout.tip{background:#e8f5e9;border-left:4px solid var(--green)}
+.callout.warn{background:#fff3e0;border-left:4px solid var(--warm)}
+.callout.important{background:#fdecea;border-left:4px solid var(--accent)}
+.warn-text{color:var(--warm);font-size:14px}
+.source-tag{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;vertical-align:middle}
+.source-tag.non-courseware{background:#fff3e0;color:var(--warm);border:1px solid rgba(251,86,7,.2)}
+
+/* ===== Knowledge Points ===== */
+.kp-list{list-style:none;padding:0}
+.kp-list li{position:relative;padding:6px 0 6px 20px;font-size:14px}
+.kp-list li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:.5}
+
+/* ===== Inline MCQ ===== */
+.mcq{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);margin:14px 0;box-shadow:var(--shadow);padding:16px 22px}
+.mcq .mcq-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.mcq .mcq-stem{font-size:14.5px;font-weight:500;flex:1;min-width:0;line-height:1.7}
+.mcq .mcq-mode-badge{display:inline-block;padding:3px 10px;border-radius:999px;background:#eef0fa;color:var(--accent2);font-size:11px;font-weight:700}
+.mcq .mcq-opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.mcq .mcq-opt{display:flex;gap:10px;padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;transition:.15s;align-items:flex-start;line-height:1.6}
+.mcq .mcq-opt:hover{border-color:var(--accent);background:#fef5f5}
+.mcq .mcq-opt input{margin-top:5px;accent-color:var(--accent);flex-shrink:0}
+.mcq .mcq-opt.selected{border-color:var(--accent);background:#fef0ef}
+.mcq .mcq-opt.pending{box-shadow:inset 0 0 0 1px rgba(231,76,60,.15)}
+.mcq .mcq-opt .opt-label{font-weight:600;color:var(--accent);margin-right:4px;flex-shrink:0}
+.mcq.answered .mcq-opt{cursor:default;pointer-events:none}
+.mcq .mcq-opt.correct{background:#e8f8f1;border-color:var(--green);font-weight:500}
+.mcq .mcq-opt.correct .opt-label{color:var(--green)}
+.mcq .mcq-opt.wrong{background:#fff0f0;border-color:var(--hot)}
+.mcq .mcq-opt.wrong .opt-label{color:var(--hot)}
+.mcq .mcq-opt.missed{background:#f0fdf4;border-color:var(--green)}
+.mcq .mcq-explain{display:none;margin-top:12px;padding:12px 16px;background:#f0fdf4;border-left:3px solid var(--green);border-radius:6px;font-size:13.5px;line-height:1.75}
+.mcq.answered .mcq-explain{display:block;animation:slideIn .25s ease}
+.mcq .mcq-result-badge{display:none;padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.mcq.answered.correct .mcq-result-badge{display:inline-block;background:var(--green)}
+.mcq.answered.correct .mcq-result-badge::before{content:"✓ 正确"}
+.mcq.answered.wrong .mcq-result-badge{display:inline-block;background:var(--hot)}
+.mcq.answered.wrong .mcq-result-badge::before{content:"✗ 错误"}
+.mcq.answered.revealed .mcq-result-badge{display:inline-block;background:var(--text2)}
+.mcq.answered.revealed .mcq-result-badge::before{content:"已查看答案"}
+.mcq .mcq-actions{margin-top:8px;display:flex;gap:8px}
+.mcq .mcq-submit,.mcq .mcq-reveal{padding:5px 14px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:.15s}
+.mcq .mcq-submit{background:var(--accent);color:#fff}
+.mcq .mcq-submit:hover{background:var(--accent2);border-color:var(--accent2)}
+.mcq .mcq-reveal:hover{background:var(--accent);color:#fff}
+.mcq.answered .mcq-reveal,.mcq.answered .mcq-submit{display:none}
+@keyframes slideIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== Open-ended question ===== */
+.openq{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);margin:14px 0;box-shadow:var(--shadow);padding:16px 22px}
+.openq .openq-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.openq .openq-stem{font-size:14.5px;font-weight:500;flex:1;min-width:0;line-height:1.7}
+.openq .openq-toggle{padding:5px 14px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:.15s;flex-shrink:0}
+.openq .openq-toggle:hover{background:var(--accent);color:#fff}
+.openq.shown .openq-toggle{background:var(--text2);border-color:var(--text2);color:#fff}
+.openq .openq-answer{display:none;margin-top:12px;padding:14px 18px;background:#f0fdf4;border-left:3px solid var(--green);border-radius:6px;font-size:13.5px;line-height:1.75}
+.openq.shown .openq-answer{display:block;animation:slideIn .25s ease}
+
+/* ===== Big problem ===== */
+.bigq{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);margin:18px 0;box-shadow:var(--shadow);overflow:hidden}
+.bigq-head{padding:14px 22px;background:linear-gradient(90deg,#fff,#fef5f5);border-bottom:1px solid var(--border)}
+.bigq-tag-row{display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.bigq-title{font-size:15px;font-weight:600;color:var(--accent2)}
+.bigq-stem{padding:14px 22px;font-size:14px;line-height:1.75;background:#fafbff}
+.bigq-stem h4{color:var(--accent2);font-size:13px;margin:8px 0 4px}
+.bigq-stem h4:first-child{margin-top:0}
+.bigq-stem pre{margin:8px 0}
+.bigq-actions{padding:10px 22px;border-top:1px dashed var(--border);background:#fef5f5}
+.bigq-toggle{padding:7px 18px;border:0;background:var(--accent);color:#fff;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:.15s}
+.bigq-toggle:hover{background:var(--accent2)}
+.bigq.shown .bigq-toggle{background:var(--text2)}
+.bigq.shown .bigq-toggle::after{content:" ↑ 收起"}
+.bigq:not(.shown) .bigq-toggle::after{content:" → 查看解答"}
+.bigq-solution{display:none;padding:16px 22px;background:#f0fdf4;border-top:1px dashed var(--green);font-size:13.5px;line-height:1.75}
+.bigq.shown .bigq-solution{display:block;animation:slideIn .3s ease}
+.bigq-solution h4{color:var(--accent2);margin:14px 0 6px;font-size:14px;padding-bottom:4px;border-bottom:1px dashed var(--border)}
+.bigq-solution h4:first-child{margin-top:0}
+.bigq-solution .step{background:#fff;border-left:3px solid var(--accent);padding:10px 14px;margin:10px 0;border-radius:4px}
+.bigq-solution table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+.bigq-solution table th,.bigq-solution table td{border:1px solid var(--border);padding:5px 9px;text-align:left;vertical-align:top}
+.bigq-solution table th{background:#fef0ef}
+.bigq-solution pre{margin:10px 0}
+.bigq-solution ul,.bigq-solution ol{padding-left:24px;margin:8px 0}
+.bigq-solution ul li,.bigq-solution ol li{margin:4px 0}
+
+/* ===== Quiz ===== */
+.quiz{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin:14px 0;box-shadow:var(--shadow);overflow:hidden}
+.quiz summary{padding:14px 20px;cursor:pointer;font-size:14px;font-weight:500;list-style:none;display:flex;align-items:center;gap:10px;transition:.15s}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:"▶";font-size:10px;color:var(--accent);transition:transform .2s;flex-shrink:0}
+.quiz[open] summary::before{transform:rotate(90deg)}
+.quiz summary:hover{background:#fef5f5}
+.q-tag{display:inline-block;background:var(--accent);color:#fff;font-size:11px;padding:2px 10px;border-radius:12px;font-weight:600;flex-shrink:0}
+.q-tag.big{background:var(--hot)}
+.q-tag.solve{background:var(--green)}
+.quiz ol,.quiz ul{padding:8px 20px 8px 48px;font-size:14px}
+.quiz li{margin:4px 0}
+.answer{background:#f0fdf4;border-top:1px dashed var(--green);padding:14px 20px;font-size:13.5px;line-height:1.75}
+.answer h4{color:var(--accent2);margin:10px 0 4px;font-size:14px}
+.answer .step{background:#fff;border-left:3px solid var(--accent);padding:8px 12px;margin:8px 0;border-radius:4px}
+.answer table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+.answer table th,.answer table td{border:1px solid var(--border);padding:5px 8px;text-align:left}
+.answer table th{background:#fef0ef}
+
+/* ===== Weight Grid ===== */
+.weight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+.weight-card{background:var(--bg2);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border-top:3px solid var(--border)}
+.weight-card.hot{border-top-color:var(--hot)}
+.weight-card.warm{border-top-color:var(--warm)}
+.weight-pct{font-size:28px;font-weight:800;color:var(--accent)}
+.weight-card h3{margin:6px 0 4px;font-size:15px}
+.weight-card p{font-size:13px;color:var(--text2)}
+
+/* ===== Roadmap ===== */
+.roadmap{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.road-step{display:flex;gap:16px;background:var(--bg2);padding:16px 20px;border-radius:var(--radius);box-shadow:var(--shadow);border-left:4px solid var(--accent)}
+.road-num{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.road-step h3{font-size:15px;margin-bottom:2px}
+.road-step p{font-size:13px;color:var(--text2)}
+
+/* ===== Trap Grid ===== */
+.trap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.trap{background:#fff5f5;border:1px solid #ffd6d6;border-left:4px solid var(--hot);padding:12px 14px;border-radius:8px;font-size:13px;line-height:1.6}
+
+/* ===== Self-Test ===== */
+.test-header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,var(--green),#0aa67c);color:#fff;border-radius:var(--radius);padding:18px 24px;margin:16px 0;flex-wrap:wrap;gap:16px}
+.test-header h3{margin:0;font-size:16px;color:#fff}
+.test-header .score{font-size:24px;font-weight:800}
+.test-header .score small{font-size:12px;font-weight:400;opacity:.85}
+.test-controls{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:7px 16px;border-radius:6px;border:0;cursor:pointer;font-size:13px;font-weight:600;transition:.15s;font-family:inherit}
+.btn-primary{background:#fff;color:var(--accent2)}
+.btn-primary:hover{background:#f0f0ff}
+.btn-ghost{background:rgba(255,255,255,.18);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.28)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:var(--accent2)}
+
+.test-q{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin:14px 0;box-shadow:var(--shadow)}
+.test-q .q-num{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:1px}
+.test-q .q-stem{font-size:14.5px;margin:6px 0 12px;font-weight:500}
+.test-q .q-mode{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:#fef0ef;color:var(--accent2);font-size:11px;font-weight:700;vertical-align:middle}
+.test-q .opts{display:flex;flex-direction:column;gap:8px}
+.test-q .opt{display:flex;gap:10px;padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:14px;transition:.15s;align-items:flex-start}
+.test-q .opt:hover{border-color:var(--accent);background:#fef5f5}
+.test-q .opt input{margin-top:4px;accent-color:var(--accent)}
+.test-q .opt.selected{border-color:var(--accent);background:#fef0ef}
+.test-q .opt.pending{box-shadow:inset 0 0 0 1px rgba(231,76,60,.15)}
+.test-q .opt.correct{background:#e8f8f1;border-color:var(--green)}
+.test-q .opt.wrong{background:#fff0f0;border-color:var(--hot)}
+.test-q .opt.missed{background:#f0fdf4;border-color:var(--green)}
+.test-q .opt.disabled{cursor:default;pointer-events:none}
+.test-q .test-actions{margin-top:12px;display:flex;justify-content:flex-end}
+.test-q .explain{display:none;margin-top:12px;padding:10px 14px;background:#f0fdf4;border-left:3px solid var(--green);border-radius:6px;font-size:13.5px;line-height:1.7}
+.test-q.answered .explain{display:block}
+.test-q .badge-right{display:inline-block;padding:2px 8px;background:var(--green);color:#fff;border-radius:10px;font-size:11px;font-weight:700;margin-left:6px}
+.test-q .badge-wrong{display:inline-block;padding:2px 8px;background:var(--hot);color:#fff;border-radius:10px;font-size:11px;font-weight:700;margin-left:6px}
+.test-q.answered .btn-submit{display:none}
+
+/* ===== Responsive ===== */
+@media(max-width:900px){.sidebar{width:220px}.content{margin-left:220px}.container{padding:24px 20px 60px}.weight-grid,.trap-grid{grid-template-columns:1fr}.hero-title{font-size:1.6rem}}
+@media(max-width:640px){.sidebar{display:none}.content{margin-left:0}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">震</div>
+    <div>
+      <h1>地震概论</h1>
+      <p>赵克常 · 期末复习</p>
+    </div>
+  </div>
+  <nav id="nav">
+    <div class="nav-section">
+      <span class="nav-title">导览</span>
+      <a href="#overview" class="nav-item active">复习总览</a>
+      <a href="#roadmap" class="nav-item">考点路线图</a>
+      <a href="#mustknow" class="nav-item">必考重点</a>
+    </div>
+    <div class="nav-section">
+      <span class="nav-title">十二讲精要</span>
+      <a href="#ch1" class="nav-item">一、地震灾害与基本概念</a>
+      <a href="#ch2" class="nav-item">二、地震学史与P/S波</a>
+      <a href="#ch3" class="nav-item">三、射线理论与折射反射</a>
+      <a href="#ch4" class="nav-item">四、走时曲线与地球结构</a>
+      <a href="#ch5" class="nav-item">五、正反演与断层几何</a>
+      <a href="#ch6" class="nav-item">六、板块构造</a>
+      <a href="#ch7" class="nav-item">七、地震带与能量公式</a>
+      <a href="#ch8" class="nav-item">八、地震仪与震级体系</a>
+      <a href="#ch9" class="nav-item">九、《大地震》电影</a>
+      <a href="#ch10" class="nav-item">十、地震预报</a>
+      <a href="#ch11" class="nav-item">十一、烈度与场地效应</a>
+      <a href="#ch12" class="nav-item">十二、海啸与预警</a>
+    </div>
+    <div class="nav-section">
+      <span class="nav-title">真题与练习</span>
+      <a href="#traps" class="nav-item">易错陷阱集锦</a>
+      <a href="#exam-choice" class="nav-item">选择填空判断</a>
+      <a href="#exam-short" class="nav-item">简答论述题</a>
+      <a href="#exam-calc" class="nav-item">计算题解析</a>
+      <a href="#self-test" class="nav-item">互动自测（打分）</a>
+    </div>
+    <div class="nav-section">
+      <span class="nav-title">速查</span>
+      <a href="#cheatsheet" class="nav-item">考前速查表</a>
+    </div>
+  </nav>
+  <div class="progress">
+    <div class="progress-label">学习进度 <span id="progressText">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</aside>
+
+<main class="content">
+<div class="container">
+
+<!-- ============== 总览 ============== -->
+<section id="overview" class="chapter">
+  <div class="hero">
+    <span class="hero-tag">赵克常 · 期末考试</span>
+    <h1 class="hero-title">地震概论<br>期末一站式复习</h1>
+    <p class="hero-sub">覆盖十二讲全部考点：地震基本概念 · 地震波 · 射线理论 · 地球内部结构 · 断层几何 · 板块构造 · 震级体系 · 地震预报 · 烈度 · 海啸。综合讲义、课堂笔记与历年真题，标注高频考点与易错陷阱。</p>
+    <div class="hero-stats">
+      <div class="stat"><b>12</b><span>讲专题</span></div>
+      <div class="stat"><b>200+</b><span>知识点</span></div>
+      <div class="stat"><b>100+</b><span>真题</span></div>
+      <div class="stat"><b>50</b><span>自测题</span></div>
+    </div>
+  </div>
+
+  <h2>考点权重（基于历年真题分布推断）<span class="source-tag non-courseware">非课件内容</span></h2>
+  <div class="weight-grid">
+    <div class="weight-card hot">
+      <div class="weight-pct">~20%</div>
+      <h3>地震波 + 射线理论</h3>
+      <p>P波/S波差异、面波与体波、射线理论高频近似、费马原理、Snell定律、首波、临界折射、波型转换、低速层/高速层</p>
+    </div>
+    <div class="weight-card hot">
+      <div class="weight-pct">~20%</div>
+      <h3>地球结构 + 震级体系</h3>
+      <p>莫霍面(1909)、古登堡面(1914)、内核(1936)、走时曲线、震相、ML/MS/mb/MW、地震定位、三角测量法</p>
+    </div>
+    <div class="weight-card warm">
+      <div class="weight-pct">~15%</div>
+      <h3>板块构造 + 断层</h3>
+      <p>大陆漂移→海底扩张→板块构造、三类边界、断层几何（倾角/走向/上盘下盘）、正/逆/走滑断层</p>
+    </div>
+    <div class="weight-card warm">
+      <div class="weight-pct">~15%</div>
+      <h3>地震预报 + 烈度</h3>
+      <p>海城地震(1975)、地震三要素、前兆方法、烈度表、基本烈度、盆地效应、场地条件</p>
+    </div>
+    <div class="weight-card warm">
+      <div class="weight-pct">~15%</div>
+      <h3>地震学史 + 基础概念</h3>
+      <p>里斯本地震(1755)、候风地动仪(132)、地震分类、古代解释、关键年份时间线</p>
+    </div>
+    <div class="weight-card warm">
+      <div class="weight-pct">~15%</div>
+      <h3>海啸 + 综合</h3>
+      <p>海啸速度公式(v=√gH)、印度洋海啸(2004)、预警与避险、核爆识别、水库地震</p>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <strong>题型说明：</strong>本课程期末以 <b>选择</b>、<b>填空</b>、<b>判断</b>、<b>简答/论述</b> 和 <b>计算</b> 为主。选择题/填空/判断考查记忆细节（年份、数字、人名），简答论述考查概念辨析与综合理解。计算题<b>每年只考固定两道</b>（海啸速度 + 地壳厚度），见<a href="#exam-calc">计算题解析</a>。
+  </div>
+  <div class="callout warn">
+    <strong>高频陷阱预警：</strong>年份对应（莫霍面1909/外核1906/内核1936/古登堡面1914）、P波S波差异、"地壳最硬"是错的、外核不是用首波发现的、倾角不能是120°、震级可以为负、里氏震级会饱和、地震预报没有找到充要前兆。详见<a href="#traps">易错陷阱集锦</a>。
+  </div>
+</section>
+
+<!-- ============== 路线图 ============== -->
+<section id="roadmap" class="chapter">
+  <h1>考点路线图 <span class="source-tag non-courseware">整理导图</span></h1>
+  <div class="roadmap">
+    <div class="road-step"><span class="road-num">1</span><div><h3>地震灾害与基本概念</h3><p>全球50万次/年 · 7级以上约18次 · 唐山24.5万 · 华县83万 · 浅中深源 · 地方近远震 · 震级分类 · 鳌鱼翻身</p></div></div>
+    <div class="road-step"><span class="road-num">2</span><div><h3>地震学史与P/S波</h3><p>里斯本1755 · 候风地动仪132 · P波纵波先到 · S波横波后到 · 面波 · 自由振荡 · 体波/面波</p></div></div>
+    <div class="road-step"><span class="road-num">3</span><div><h3>射线理论与折射反射</h3><p>高频近似=短波近似 · 费马原理 · Snell定律 · 首波临界折射 · 波型转换 · 低速层/高速层 · α/β/慢度</p></div></div>
+    <div class="road-step"><span class="road-num">4</span><div><h3>走时曲线与地球结构</h3><p>莫霍面(1909) · 古登堡面(1914) · 内核(1936) · Sg斜率最大 · Pn斜率最小 · 外核液态 · K/PcP震相</p></div></div>
+    <div class="road-step"><span class="road-num">5</span><div><h3>正反演与断层几何</h3><p>PREM · 正演vs反演 · CT层析成像 · 倾角0°-90° · 走向角0°-360° · 上盘下盘 · 正/逆/走滑断层</p></div></div>
+    <div class="road-step"><span class="road-num">6</span><div><h3>板块构造</h3><p>固定论→大陆漂移(1915)→海底扩张(1962)→板块构造 · 六大板块 · 三类边界 · 圣安德烈斯断层</p></div></div>
+    <div class="road-step"><span class="road-num">7</span><div><h3>全球地震带与能量</h3><p>三大地震带 · logE=11.8+1.5M · 差1级≈32倍 · 1960智利9.5级 · 核爆识别 · 新丰江水库</p></div></div>
+    <div class="road-step"><span class="road-num">8</span><div><h3>地震仪与震级体系</h3><p>惯性原理 · 三分量 · ML(1935) · MS/mb/MW · 1微米→M=0 · 1cm→M=4 · 震级误差0.3级</p></div></div>
+    <div class="road-step"><span class="road-num">9</span><div><h3>《大地震》电影考点</h3><p>地震局人员看仪器后躲桌下 · 不发生的次生灾害：瘟疫 · 最先预报：实习生 · 岳父心脏病去世</p></div></div>
+    <div class="road-step"><span class="road-num">10</span><div><h3>地震预报</h3><p>三要素 · 时间最难 · 海城地震(1975.2.4) · 前兆非充要条件 · 省级政府发布 · 不能稳定准确预报</p></div></div>
+    <div class="road-step"><span class="road-num">11</span><div><h3>烈度与场地效应</h3><p>12度烈度表 · 基本烈度(50年/10%/475年) · 盆地效应 · 填海造地风险高 · 墨西哥10-14层</p></div></div>
+    <div class="road-step"><span class="road-num">12</span><div><h3>海啸与预警</h3><p>v=√gH · 深海800km/h · 2004印度洋 · 中国南海风险最高 · 波谷先到 · 往高处跑 · InSAR</p></div></div>
+  </div>
+</section>
+
+<!-- ============== 必考重点 ============== -->
+<section id="mustknow" class="chapter">
+  <h1>📌 必考重点 <span class="source-tag">周五班重点</span></h1>
+
+  <div class="callout important">
+    <strong>抨击柳州地震谣言（必考简答题）：</strong><br>
+    ① 柳州不在地震带上，不易形成大地震<br>
+    ② 柳州没有发现其他异常，说明发生灾难性地震的可能性很小<br>
+    ③ 偶尔发生几次小地震，是正常的地震活动波动<br>
+    ④ 事实检验：两周后没有发生大地震，"实践是检验真理的唯一标准"
+  </div>
+
+  <div class="callout important">
+    <strong>月震与火星震（必考填空/判断）：</strong><br>
+    月球上的月震分为四种：<b>深源月震、浅源月震、热月震、撞击月震</b><br>
+    月震和火星震，持续时间<b>较长</b><br>
+    火星震探测出火星<b>1830km</b>深度有液态铁核<br>
+    月球和火星上面<b>没有板块构造</b>
+  </div>
+
+  <div class="callout important">
+    <strong>关键年份一列通（必考填空）：</strong><br>
+    1522年：麦哲伦环球航行结束，证明地球是圆的<br>
+    1906年：奥尔德姆发现液态外核（地核）<br>
+    1909年：莫霍洛维奇发现莫霍面（壳幔边界）<br>
+    1914年：古登堡确定核幔边界（古登堡不连续面）<br>
+    1936年：英厄·莱曼发现地球内核
+  </div>
+
+  <div class="callout important">
+    <strong>计算题只会考两道（必考）：</strong><br>
+    计算题1：地震波Pn走时方程——求地幔顶部P波速度和地壳厚度<br>
+    计算题2：海啸速度公式 v=√(gH)——求海啸从A到D的最短时间<br>
+    <b>每年都只考这两道！</b>详见<a href="#exam-calc">计算题解析</a>。
+  </div>
+</section>
+
+<!-- ============== 第一讲 ============== -->
+<section id="ch1" class="chapter">
+  <h1>第一讲 · 地震灾害、基本概念与古代解释 <span class="source-tag">01.wav</span></h1>
+  <div class="callout important">
+    <strong>核心数据：</strong>全球每年约 <b>50万次地震</b>（有感不到1%）；7级以上约 <b>17-18次</b>；8级以上约 <b>1-2次</b>；全球约 <b>6亿人</b>生活在强震带上。
+  </div>
+
+  <h2>1.1 全球与中国重大地震灾害</h2>
+  <table class="tbl">
+    <tr><th>项目</th><th>数据</th><th>备注</th></tr>
+    <tr><td>20世纪死于地震</td><td>约200万人</td><td></td></tr>
+    <tr><td>21世纪预计死于地震</td><td>约1500万人</td><td>人口增长、城市化、高楼增多</td></tr>
+    <tr><td>全球死亡>20万人的地震</td><td>共6次</td><td>中国占4次</td></tr>
+    <tr><td>唐山大地震</td><td>死亡约24.5万人</td><td>1976年7月28日</td></tr>
+    <tr><td>华县大地震</td><td>死亡约83万人</td><td>1556年，明朝嘉靖年间</td></tr>
+    <tr><td>旧金山地震</td><td>火灾严重</td><td>次生灾害典型</td></tr>
+    <tr><td>1985年墨西哥地震</td><td>建筑压塌严重</td><td>环太平洋带</td></tr>
+  </table>
+
+  <h2>1.2 地震分类（高频考点）</h2>
+  <table class="tbl">
+    <tr><th>分类标准</th><th>类别</th><th>标准</th></tr>
+    <tr><td>按成因</td><td>构造地震、火山地震、塌陷地震</td><td>构造地震占90%以上</td></tr>
+    <tr><td>按震源深度</td><td>浅源、中源、深源</td><td>≤60km / 60-300km / >300km</td></tr>
+    <tr><td>按震中距</td><td>地方震、近震、远震</td><td>&lt;100km / 100-1000km / >1000km</td></tr>
+    <tr><td>按震级</td><td>弱震(M&lt;3)、有感(3-4.5)、中强震(4.5-6)、强震(≥6)、巨大地震(≥8)</td><td></td></tr>
+  </table>
+
+  <div class="callout warn">
+    <strong>判断陷阱：</strong>汶川地震震源深度约15km，属于<b>浅源地震</b>（不是中源！）；太平洋321km深度地震属于<b>深源地震</b>（因为>300km）；唐山地震对北京是<b>近震</b>（约150km）；汶川地震对北京是<b>远震</b>（>1000km）；天安门附近2.5级地震对北大是<b>地方震</b>（<100km）。
+  </div>
+
+  <h2>1.3 地震序列与地震学研究</h2>
+  <ul class="kp-list">
+    <li>地震序列：主震、前震、余震。分两类：<b>主震型</b>（汶川是典型）、<b>震群型</b></li>
+    <li>地震学研究三方面：<b>宏观地震学、地震波传播理论、测震学</b></li>
+    <li>地震次生灾害：火灾、海啸、滑坡、崩塌、水灾、瘟疫等</li>
+  </ul>
+
+  <h2>1.4 古代地震解释（选择题/填空题常考）</h2>
+  <table class="tbl">
+    <tr><th>地区/文化</th><th>地震解释</th><th>备注</th></tr>
+    <tr><td>中国</td><td>鳌鱼翻身</td><td>也有阴阳论、天谴论</td></tr>
+    <tr><td>日本</td><td>地下鲶鱼摆尾</td><td>用大石头压住鲶鱼头</td></tr>
+    <tr><td>印度</td><td>大象</td><td></td></tr>
+    <tr><td>台湾/高山族</td><td>地牛/水牛</td><td></td></tr>
+    <tr><td>北美印第安人</td><td>乌龟</td><td></td></tr>
+    <tr><td>蒙古</td><td>青蛙</td><td></td></tr>
+    <tr><td>古希腊</td><td>气动说（有实验验证意识）</td><td>接近现代科学方法</td></tr>
+  </table>
+
+  <div class="callout tip"><strong>简答常考：</strong>中国古代地震学为什么没有发展成现代地震科学？——缺少物理过程分析、缺少验证和改进机制、阴阳天谴等观念限制了对自然的科学探索。</div>
+</section>
+
+<!-- ============== 第二讲 ============== -->
+<section id="ch2" class="chapter">
+  <h1>第二讲 · 地震学史与P/S波基础 <span class="source-tag">02.wav</span></h1>
+
+  <h2>2.1 关键历史事件</h2>
+  <table class="tbl">
+    <tr><th>时间</th><th>事件</th><th>意义</th></tr>
+    <tr><td>1755.11.1</td><td>里斯本大地震</td><td>死亡约7-8万人；欧洲地震学摆脱神学禁锢</td></tr>
+    <tr><td>东汉132年</td><td>张衡发明候风地动仪</td><td>利用惯性原理；八条龙八个方向；不能预报地震，是验震器/检测器</td></tr>
+    <tr><td>1920年</td><td>甘肃海原大地震</td><td>推动中国现代地震研究</td></tr>
+    <tr><td>1953年</td><td>中科院成立相关工作委员会</td><td></td></tr>
+    <tr><td>1966年</td><td>河北邢台大地震</td><td>推动成立国家地震局</td></tr>
+    <tr><td>1971年</td><td>国家地震局成立</td><td>中国是唯一设国家机构统一开展预测预防的国家</td></tr>
+    <tr><td>1911年</td><td>弹性回跳理论提出</td><td>美国里德</td></tr>
+  </table>
+
+  <h2>2.2 弹性介质与地震波基本概念</h2>
+  <ul class="kp-list">
+    <li>波传播需要：<b>波源 + 介质</b>。地震波是机械波，需要介质传播</li>
+    <li>研究地震波传播时，地球介质近似为<b>弹性介质</b></li>
+    <li>地震破裂时岩石表现为<b>脆性</b></li>
+    <li>地震波分类：<b>体波</b>（P波+S波）、<b>面波</b>（Love波+Rayleigh波）、<b>自由振荡</b></li>
+  </ul>
+
+  <h2>2.3 P波与S波核心差异（高频考点！）</h2>
+  <table class="tbl">
+    <tr><th>特性</th><th>P波（纵波/Primary）</th><th>S波（横波/Secondary/Shear）</th></tr>
+    <tr><td>速度</td><td>快，先到达</td><td>慢，后到达</td></tr>
+    <tr><td>振动方向</td><td>与传播方向平行</td><td>与传播方向垂直</td></tr>
+    <tr><td>传播介质</td><td>固、液、气</td><td>仅固体（外核不能传S波→外核为液态）</td></tr>
+    <tr><td>体积变化</td><td>有体积变化，无转动</td><td>有转动，无体积变化（无散/等容波）</td></tr>
+    <tr><td>分量强弱</td><td>垂直分量较强</td><td>水平分量较强</td></tr>
+    <tr><td>频率</td><td>高频丰富</td><td>低频成分比P波丰富</td></tr>
+    <tr><td>能量</td><td>较弱</td><td>天然地震中S波能量通常比P波强，杀伤力较强</td></tr>
+    <tr><td>感觉</td><td>先上下颠</td><td>后水平晃</td></tr>
+  </table>
+
+  <h2>2.4 面波与自由振荡</h2>
+  <ul class="kp-list">
+    <li>面波沿地表传播，能量集中在表面，振幅大、破坏性大</li>
+    <li>面波有<b>频散</b>：周期越大，传播越深（用于反演地球内部结构）</li>
+    <li>均匀介质中没有频散</li>
+    <li>面波波序：P波→S波→<b>Love波→Rayleigh波</b>→尾波</li>
+    <li>Love波只有水平振动（SH激发）；Rayleigh波既有水平又有垂直振动</li>
+    <li>大地震可激发整个地球<b>自由振荡</b>：分球型振荡和环型振荡</li>
+    <li>全球地震学格局：<b>中、美、日三足鼎立</b></li>
+  </ul>
+</section>
+
+<!-- ============== 第三讲 ============== -->
+<section id="ch3" class="chapter">
+  <h1>第三讲 · 射线理论与折射反射 <span class="source-tag">03.wav</span></h1>
+
+  <div class="callout important">
+    <strong>重述P波S波差异（本讲核心）：</strong>P波先到、S波后到；先上下颠后水平晃；P波垂直分量较强、S波水平分量较强；S波低频成分更丰富；天然地震S波能量强于P波。
+  </div>
+
+  <h2>3.1 射线理论（高频考点）</h2>
+  <ul class="kp-list">
+    <li>地震波传播理论分：<b>动力学方法</b>（解波动方程）、<b>运动学方法</b>（路程/时间/速度关系）</li>
+    <li>射线理论用一条射线表示传播路径，适用条件：<b>高频近似，尺度远大于波长</b></li>
+    <li><b>高频近似 = 短波近似</b>（小测明确考点！）</li>
+    <li>射线方向即波前法线方向</li>
+    <li><b>费马原理：地震波沿走时最短路径传播</b></li>
+  </ul>
+
+  <h2>3.2 直达波与首波</h2>
+  <ul class="kp-list">
+    <li>直达波：直接从震源传播到观测点</li>
+    <li>首波：经界面临界折射后沿高速层传播再返回</li>
+    <li>小震中距：直达波先到；大震中距：首波可能先到</li>
+    <li>地震波振幅随时间和空间均指数衰减</li>
+    <li>品质因子Q描述能量耗散/衰减</li>
+  </ul>
+
+  <h2>3.3 反射、折射与Snell定律</h2>
+  <ul class="kp-list">
+    <li>1°震中距 ≈ <b>110公里</b></li>
+    <li>反射角等于入射角</li>
+    <li>折射遵循 <b>Snell定律</b></li>
+    <li>临界透射时透射角为90°：$\sin i_c = V_1 / V_2$</li>
+    <li>研究时地球介质近似为：<b>完全弹性、连续、各向同性</b></li>
+  </ul>
+
+  <h2>3.4 高速层、低速层与波型转换</h2>
+  <ul class="kp-list">
+    <li>速度随深度异常减小：<b>低速层</b>（可能形成影区）</li>
+    <li>速度随深度异常增大：<b>高速层</b>（可能产生首波）</li>
+    <li>地震波遇界面可发生：反射、透射、<b>波型转换</b></li>
+    <li><b>P波可转换成SV波，SV波可转换成P波</b></li>
+    <li>SH波不能与P波/SV波发生这种转换（因为SH振动方向垂直于入射面）</li>
+    <li>α表示P波/纵波速度，β表示S波/横波速度；速度的倒数叫<b>慢度</b></li>
+  </ul>
+</section>
+
+<!-- ============== 第四讲 ============== -->
+<section id="ch4" class="chapter">
+  <h1>第四讲 · 走时曲线、震相与地球内部结构 <span class="source-tag">04.wav</span></h1>
+
+  <h2>4.1 走时曲线（高频考点）</h2>
+  <ul class="kp-list">
+    <li>走时曲线：横坐标<b>震中距</b>，纵坐标<b>到达时间</b></li>
+    <li>直达波：直接到达观测点</li>
+    <li>反射波：界面反射后到达</li>
+    <li>首波：临界折射后沿高速层传播再返回</li>
+    <li>第一临界震中距：首波开始出现；第二临界震中距：首波赶上直达波</li>
+    <li>粗略取：P波≈<b>8 km/s</b>，S波≈<b>4 km/s</b></li>
+    <li>唐山地震到北京P-S到时差约20秒，估算震中距约<b>160公里</b>（震中距≈P-S到时差×8）</li>
+  </ul>
+
+  <h2>4.2 震相（高频考点！小测常考）</h2>
+  <table class="tbl">
+    <tr><th>震相</th><th>含义</th><th>备注</th></tr>
+    <tr><td>Pg/Sg</td><td>近震直达波</td><td>Sg斜率最大（速度最小）</td></tr>
+    <tr><td>Pn/Sn</td><td>近震首波</td><td>Pn斜率最小（速度最大）</td></tr>
+    <tr><td>K</td><td>P波在外核中的传播段</td><td>外核不能传播S波</td></tr>
+    <tr><td>PcP</td><td>在核幔边界反射的P波</td><td>反射波信噪比高</td></tr>
+  </table>
+  <div class="callout warn"><strong>小测考点：</strong>走时曲线斜率与速度倒数有关——速度越大斜率越小。Sg斜率最大（因为速度最小），Pn斜率最小（因为速度最大）。体波走时曲线多为<b>曲线</b>，Love波/Rayleigh波走时曲线近似<b>直线</b>。</div>
+
+  <h2>4.3 地球内部结构发现史（高频填空）</h2>
+  <table class="tbl">
+    <tr><th>年份</th><th>人物</th><th>发现</th><th>方法/依据</th></tr>
+    <tr><td>1522</td><td>麦哲伦船队</td><td>证明地球是圆的</td><td>环球航行</td></tr>
+    <tr><td>1906</td><td>奥尔德姆(Oldham)</td><td>发现液态外核</td><td>地震波影区/低速异常（<b>不是用首波！</b>）</td></tr>
+    <tr><td>1909</td><td>莫霍洛维奇</td><td>发现莫霍面（壳幔边界）</td><td>通过首波/折射波原理</td></tr>
+    <tr><td>1914</td><td>古登堡(Gutenberg)</td><td>确定核幔边界</td><td>使用反射震相，信噪比高</td></tr>
+    <tr><td>1936</td><td>英厄·莱曼(Lehmann)</td><td>发现内核</td><td>影区中出现异常信号</td></tr>
+  </table>
+
+  <h2>4.4 地球圈层结构</h2>
+  <ul class="kp-list">
+    <li>地球圈层：<b>地壳、地幔、外核、内核</b></li>
+    <li>莫霍面 = 地壳—地幔边界（壳幔边界）、地球第一大间断面</li>
+    <li>古登堡不连续面 = 核幔边界，约地下<b>2900km</b>（现代值2891km）</li>
+    <li>地幔重要界面：410km和670km；地幔可传播S波，地震学上视为<b>固体</b></li>
+    <li>外核为<b>液态</b>（S波不能通过，P波速度下降）</li>
+    <li><b>地壳不是地球最硬的部分</b>（地幔上部速度更大→更硬）——判断题高频陷阱！</li>
+    <li>陆地地壳较厚，海洋地壳较薄</li>
+    <li>能推断地球内部不全是液态的证据：<b>S波能在地球内部传播</b></li>
+  </ul>
+</section>
+
+<!-- ============== 第五讲 ============== -->
+<section id="ch5" class="chapter">
+  <h1>第五讲 · 正反演与断层几何 <span class="source-tag">05.wav</span></h1>
+
+  <h2>5.1 正演与反演</h2>
+  <ul class="kp-list">
+    <li><b>正演</b>：由原因推结果；<b>反演</b>：由结果推原因</li>
+    <li>由地震图、走时反推地下结构属于<b>反演</b></li>
+    <li>地震层析成像类似医学<b>CT</b>，用地震波反推三维结构</li>
+    <li>PREM：初步地球参考模型</li>
+    <li>一维结构：只考虑深度方向变化；三维结构：还考虑经纬度、横向非均匀性</li>
+    <li>层析成像方法：体波射线方法、面波方法、接收函数方法</li>
+  </ul>
+
+  <h2>5.2 地震成因与断层</h2>
+  <ul class="kp-list">
+    <li>地震能量来源：<b>构造应力造成的大规模变形</b></li>
+    <li>地震波激发的直接原因：<b>断层突然滑移/错动</b></li>
+    <li>冷脆岩石容易发生脆性破裂（浅部）；深部温度高→塑性流动→不易发生脆性破裂</li>
+    <li>断层：岩石破裂面两侧岩块发生明显相对位移的断裂构造→破坏岩层连续性</li>
+  </ul>
+
+  <h2>5.3 断层几何参数（高频计算/选择/填空）</h2>
+  <table class="tbl">
+    <tr><th>参数</th><th>定义</th><th>范围</th></tr>
+    <tr><td>倾角</td><td>断层面与水平面的夹角</td><td>0°—90°（若钝角120°→倾角取60°）</td></tr>
+    <tr><td>走向</td><td>断层面与地表交线方向</td><td>0°—360°，正北为参考，顺时针量取</td></tr>
+    <tr><td>上盘</td><td>断层面上方岩块</td><td></td></tr>
+    <tr><td>下盘</td><td>断层面下方岩块</td><td></td></tr>
+    <tr><td>震源</td><td>断层开始滑动的地方</td><td></td></tr>
+    <tr><td>震中</td><td>震源在地表的垂直投影</td><td></td></tr>
+  </table>
+
+  <div class="callout warn">
+    <strong>判断走向的方法：</strong>沿交线看，上盘在<b>右侧</b>的方向为走向。若上盘在左侧，转<b>180°</b>。<br>
+    <b>课堂例题（必考）：</b>断层线东北—西南向，朝东北看上盘在左侧，走向角为<b>225°</b>（不是45°！）。<br>
+    <b>东西走向的断层，面向正东方向时上盘在右边，走向是多少度？→ 90°</b>
+  </div>
+
+  <h2>5.4 断层分类</h2>
+  <table class="tbl">
+    <tr><th>类型</th><th>运动特征</th></tr>
+    <tr><td>正断层</td><td>上盘相对下盘<b>向下</b>运动</td></tr>
+    <tr><td>逆断层</td><td>上盘相对下盘<b>向上</b>运动</td></tr>
+    <tr><td>走滑断层</td><td>两盘水平错动（左旋：对面向左；右旋：对面向右）</td></tr>
+    <tr><td>斜滑断层</td><td>既有垂直分量，又有水平分量</td></tr>
+  </table>
+  <ul class="kp-list">
+    <li>圣安德烈斯断层：典型大型走滑断层，地表错动明显</li>
+    <li>扩散边界以正断层为主；汇聚边界（海沟）以逆冲断层为主；转换边界以走滑断层为主</li>
+    <li>海沟处挤压强，容易发生大地震；洋中脊地震一般不大</li>
+  </ul>
+</section>
+
+<!-- ============== 第六讲 ============== -->
+<section id="ch6" class="chapter">
+  <h1>第六讲 · 板块构造 <span class="source-tag">06.wav</span></h1>
+
+  <div class="callout important">
+    <strong>板块构造"三部曲"：</strong>大陆漂移 → 海底扩张 → 板块构造<br>
+    <strong>固定论</strong>：海洋永远是海洋，陆地永远是陆地；<strong>板块构造</strong>：板块有主动水平运动
+  </div>
+
+  <h2>6.1 大陆漂移（1915，魏格纳）</h2>
+  <ul class="kp-list">
+    <li>1785年Hutton提出<b>均变论</b>（以今推古/将今论古）</li>
+    <li>大陆漂移证据：海岸线拼合、大陆架拼合、化石、岩石、山脉连续性、气候证据</li>
+    <li>固定论难解释：南极有煤、非洲有冰川遗迹</li>
+    <li>加上大陆架后，非洲和南美洲拼合更好</li>
+    <li>魏格纳学说早期最大问题：<b>解释不了动力机制</b></li>
+  </ul>
+
+  <h2>6.2 海底扩张（1962）</h2>
+  <ul class="kp-list">
+    <li>海底磁条带沿洋中脊两侧对称分布→支持海底扩张</li>
+    <li>新洋壳在<b>大洋中脊</b>生成，向两侧扩张，在<b>海沟</b>处消亡</li>
+    <li>地球面积没有变大：洋壳有生有死</li>
+    <li>海洋地壳年龄不到<b>2-3亿年</b>（图上约1.8亿年）；大陆岩石可达约<b>40亿年</b></li>
+    <li>海洋地壳年轻→沉积层较薄</li>
+  </ul>
+
+  <h2>6.3 板块构造</h2>
+  <ul class="kp-list">
+    <li>板块包括：<b>地壳 + 上地幔顶部坚硬部分</b>（岩石圈）</li>
+    <li>板块漂浮在较软的<b>软流层</b>上（砖放在软水泥上的比喻）</li>
+    <li>约<b>2.5亿年前</b>存在超级大陆</li>
+    <li><b>六大板块</b>：欧亚、非洲、美洲（北美+南美合并）、太平洋、印度—澳大利亚、南极洲</li>
+  </ul>
+
+  <h2>6.4 三类板块边界（高频考点）</h2>
+  <table class="tbl">
+    <tr><th>边界类型</th><th>特征</th><th>例子</th><th>对应断层</th></tr>
+    <tr><td>扩散边界</td><td>板块分离，新洋壳生成</td><td>大西洋中脊（扩张约2.5cm/年）、冰岛、东非裂谷</td><td>正断层</td></tr>
+    <tr><td>汇聚边界</td><td>板块碰撞俯冲</td><td>安第斯山脉（洋—陆）、喜马拉雅/青藏高原（陆—陆）、日本附近</td><td>逆冲断层</td></tr>
+    <tr><td>转换边界</td><td>板块水平错动</td><td>圣安德烈斯断层</td><td>走滑断层</td></tr>
+  </table>
+
+  <div class="callout tip">
+    三类汇聚：<b>洋—陆</b>（安第斯山脉，太平洋板块→南美洲板块）、<b>洋—洋</b>（岛弧+海沟+火山）、<b>陆—陆</b>（喜马拉雅山+青藏高原，印度板块→欧亚板块）。喜马拉雅山仍在升高但不会无限升高。
+  </div>
+</section>
+
+<!-- ============== 第七讲 ============== -->
+<section id="ch7" class="chapter">
+  <h1>第七讲 · 全球地震带、能量公式与核爆识别 <span class="source-tag">07.wav</span></h1>
+
+  <h2>7.1 板块补充知识</h2>
+  <ul class="kp-list">
+    <li>夏威夷火山链属于<b>地幔热点</b>现象→说明太平洋板块向西北运动</li>
+    <li>夏威夷新岛大致在现有岛链<b>东南方向</b>形成</li>
+    <li>板块构造仍有未解问题：驱动力、边界复杂性等</li>
+    <li>地幔对流假说可解释板块运动</li>
+    <li>有限破裂中：破裂加速时正前方振幅<b>先增大后减小</b>（不是一直增大！）</li>
+    <li>位移求导→速度→加速度；求导增强高频，积分削弱高频/增强低频</li>
+  </ul>
+
+  <h2>7.2 全球三大地震带</h2>
+  <table class="tbl">
+    <tr><th>地震带</th><th>特征</th></tr>
+    <tr><td><b>环太平洋地震带</b></td><td>全球约80%浅源、90%中源、全部深源地震集中于此；最重要！</td></tr>
+    <tr><td>欧亚/阿尔卑斯—喜马拉雅地震带</td><td>中国受此带和环太平洋带共同影响</td></tr>
+    <tr><td>海岭/洋中脊地震带</td><td>地震一般规模不大</td></tr>
+  </table>
+
+  <h2>7.3 地震能量公式（必考计算/填空）</h2>
+  <div class="callout important">
+    $$\log E = 11.8 + 1.5M$$
+    E单位：<b>尔格(erg)</b>；1焦耳 = $10^7$尔格<br>
+    震级差<b>1级</b>→能量差约<b>32倍</b>；震级差<b>2级</b>→能量差约<b>1000倍</b><br>
+    震级越高数量越少：每升一级数量约少<b>10倍</b><br>
+    全球最大地震：<b>1960年智利大地震</b>，约<b>9.5级</b>
+  </div>
+  <ul class="kp-list">
+    <li>全球地震活动最强烈国家：<b>日本、意大利、智利、秘鲁、土耳其</b>（中国不是前五！）</li>
+    <li>1966年前华北地震较突出；1966年后青藏高原地震较突出</li>
+    <li>6级地震能量约相当于2万吨TNT当量</li>
+  </ul>
+
+  <h2>7.4 核爆识别与水库地震</h2>
+  <table class="tbl">
+    <tr><th>特征</th><th>天然构造地震</th><th>理想核爆</th></tr>
+    <tr><td>S波</td><td><b>较强</b></td><td><b>较弱</b></td></tr>
+    <tr><td>P波</td><td>正常</td><td><b>较强</b></td></tr>
+    <tr><td>波形</td><td>复杂</td><td>较简单</td></tr>
+    <tr><td>震源</td><td>通常较深</td><td>较浅</td></tr>
+    <tr><td>震源机制</td><td>四象限分布</td><td>近似全黑/全压缩型</td></tr>
+  </table>
+  <ul class="kp-list">
+    <li><b>水库诱发地震</b>：1962年3月19日，广东河源<b>新丰江水库</b>，约6.1/6.4级</li>
+    <li>水库地震一般不大，最大约6.4级；运行约两年后趋于稳定</li>
+  </ul>
+</section>
+
+<!-- ============== 第八讲 ============== -->
+<section id="ch8" class="chapter">
+  <h1>第八讲 · 地震仪、定位与震级体系 <span class="source-tag">08.wav</span></h1>
+
+  <h2>8.1 地震仪发展</h2>
+  <ul class="kp-list">
+    <li>区域结构反演选震级：8.2、6.2、4.2、2.2中选<b>6.2级</b>（8.2太大不能点源近似，4.2/2.2太小信噪比低）</li>
+    <li>候风地动仪：东汉132年，惯性原理，八条龙，<b>不能预报地震</b>，是验震器/检测器</li>
+    <li>实用现代地震仪约出现在<b>1880-1890年（19世纪末）</b></li>
+    <li>早期现代地震仪与<b>访日英国人</b>有关（英国科技强，日本地震多）</li>
+    <li>地震仪基本原理：<b>惯性原理</b></li>
+    <li>三分量地震仪记录：<b>东西、南北、上下</b></li>
+    <li>地面运动可用：位移、速度、加速度</li>
+    <li>地震仪组成：拾震器/传感器、放大器、记录系统</li>
+    <li>模拟记录→人工读数误差大；数字记录→可直接计算机处理</li>
+    <li>中国北京鹫峰地震记录开始于<b>1930年</b>（李善邦、秦馨菱）</li>
+  </ul>
+
+  <h2>8.2 地震定位（三角测量法）</h2>
+  <ul class="kp-list">
+    <li>用P-S到时差求震中距；三个台站画圆交会确定震中</li>
+    <li>粗略估算：震中距 ≈ P-S到时差 × <b>8</b></li>
+    <li>震中定位精度约<b>10km</b>；震源深度定位精度约<b>20km</b></li>
+    <li>实际三维地震定位一般至少需要<b>4个台站</b></li>
+    <li>理想均匀各向同性半空间中：<b>1个三分量台站</b>即可定位</li>
+    <li>宏观震中：破坏最严重的地方</li>
+  </ul>
+
+  <h2>8.3 震级体系（高频考点）</h2>
+  <table class="tbl">
+    <tr><th>震级</th><th>全称</th><th>适用场景</th><th>备注</th></tr>
+    <tr><td>ML</td><td>里氏震级/地方震震级</td><td>南加州小地震</td><td>1935年Richter在加州理工提出；≥6.5会饱和</td></tr>
+    <tr><td>MS</td><td>面波震级</td><td>远震、大震、浅源</td><td>不适用于深源地震（深源不易激发有效面波）</td></tr>
+    <tr><td>mb</td><td>体波震级</td><td>深源也可用</td><td>根据P波大小确定</td></tr>
+    <tr><td>MW</td><td>矩震级</td><td>巨大地震</td><td><b>不属于里氏震级系统</b>！有物理意义，不会饱和</td></tr>
+  </table>
+
+  <div class="callout important">
+    <strong>里氏震级计算：</strong>$M = \lg A$（A为距震中100km处标准地震仪记录的最大振幅，单位微米）<br>
+    1微米(0.001mm)→M=0；1毫米→M=3；1厘米→M=4<br>
+    <b>震级可以为负！</b>因为小于1微米取对数为负<br>
+    地震矩 = 岩石刚度 × 破裂面积 × 平均滑移量（有物理意义，不会为负）<br>
+    震级测定误差一般约<b>0.3级</b>；汶川震级曾从约7.8修订到约8.0<br>
+    汶川大地震严格说不应简单称"里氏8.0级"
+  </div>
+</section>
+
+<!-- ============== 第九讲 ============== -->
+<section id="ch9" class="chapter">
+  <h1>第九讲 ·《大地震》电影考点 <span class="source-tag">电影考点</span></h1>
+
+  <table class="tbl">
+    <tr><th>考点</th><th>答案</th></tr>
+    <tr><td>地震局人员遇到地震做的事</td><td><b>看一眼仪器，然后躲在桌子底下</b></td></tr>
+    <tr><td>最先预报地震的是</td><td><b>实习生</b></td></tr>
+    <tr><td>没有发生的次生灾害</td><td><b>瘟疫</b></td></tr>
+    <tr><td>男女主关系</td><td>家庭富裕但婚姻危机，女主父亲是男主上司，利益婚姻</td></tr>
+    <tr><td>大坝检查员</td><td>Max认为小地震不用在意，Fred认为应紧急检查→Fred被淹死</td></tr>
+    <tr><td>预报者罗素</td><td>数据发给艾博士但对方未收到（塌方被埋死亡）</td></tr>
+    <tr><td>地震协会负责人</td><td>史博士表面轻视罗素但私下重视数据；得知艾博士死讯后才联系市长</td></tr>
+    <tr><td>市长犹豫原因</td><td>党派之争</td></tr>
+    <tr><td>地震模型</td><td>葛沃介绍新产品——地震模型，不被认可</td></tr>
+    <tr><td>岳父结局</td><td>被困办公楼，因心脏病去世</td></tr>
+    <tr><td>灾难中的救助站</td><td>好莱坞广场/奥氏保险大楼/维逊商场</td></tr>
+    <tr><td>士兵美姬线</td><td>士兵在混乱中虚荣心膨胀，以劫掠为由射杀三人，后对美姬图谋不轨；被雷警察解救</td></tr>
+  </table>
+</section>
+
+<!-- ============== 第十讲 ============== -->
+<section id="ch10" class="chapter">
+  <h1>第十讲 · 地震预报 <span class="source-tag">10.wav</span></h1>
+
+  <div class="callout important">
+    <strong>核心结论：</strong>地震预报是世界性难题，目前<b>不能稳定、准确、可重复预报</b>。<br>
+    地震预测≠地震预报：预测偏<b>科学分析</b>（研究行为），预报是<b>政府行为</b>。<br>
+    可靠预报必须具有<b>可重复性</b>，一次海城成功不等于地震预报已被攻克。
+  </div>
+
+  <h2>10.1 地震预报三要素</h2>
+  <ul class="kp-list">
+    <li><b>时间、地点、强度（震级）</b></li>
+    <li>三要素中<b>时间最难报准</b>（地点相对容易→看断层/板块边界；强度相对容易→海沟出大震/洋中脊出小震）</li>
+    <li>地震预报分：<b>长期、中期、短期、临震</b>（人为划分）</li>
+  </ul>
+
+  <h2>10.2 地震预报三种方法</h2>
+  <ul class="kp-list">
+    <li><b>地震地质/构造方法</b>：宏观估计地点和强度，大面积划分危险地带（地震区划）</li>
+    <li><b>统计方法</b>：产生于不了解物理过程时，依赖数据丰富</li>
+    <li><b>前兆方法</b>：寻找前兆是地震预报的核心</li>
+  </ul>
+
+  <h2>10.3 地震前兆</h2>
+  <ul class="kp-list">
+    <li>包括：地形变、地震空区、P/S波速比变化、地下水、电磁、氡气、动物异常、前震等</li>
+    <li><b>地震前兆与地震发生之间：既非充分条件，也非必要条件！</b>（选择题高频考点）</li>
+    <li>目前没有找到可靠的"充要地震前兆"</li>
+    <li>地震空区：周围有地震，某区域异常平静→可能积累应力</li>
+  </ul>
+
+  <h2>10.4 海城地震——世界著名成功预报案例</h2>
+  <div class="callout tip">
+    <b>时间线（重要填空/判断数据）：</b><br>
+    1973年：已有长期趋势判断<br>
+    1974年6月：判断辽南等地一两年内可能5-6级<br>
+    1975年1月中旬：判断营口—金县—丹东上半年可能5-6级<br>
+    1975年<b>2月4日上午10时</b>左右：发布临震警报<br>
+    1975年<b>2月4日19时36分</b>：海城7.3级地震发生<br>
+    <b>但预报震级不准（预报5-6级，实际7.3级）</b>
+  </div>
+  <ul class="kp-list">
+    <li>海城震前异常：地下水异常、动物异常（蛇出洞被冻僵、小鸡追蛇）、有感前震</li>
+    <li>海城成功有特殊历史背景，<b>不能简单复制到所有地震</b></li>
+    <li>1976年7月28日唐山大地震未能成功预报→公众对地震预报信心受到严重打击</li>
+  </ul>
+
+  <h2>10.5 地震预报困难原因与发布</h2>
+  <ul class="kp-list">
+    <li>困难原因三点：<b>地球内部不可入、大震不频发、地球物理过程复杂</b></li>
+    <li>地震预报由<b>省级人民政府</b>发布（不是个人！原因：地震影响具有区域性，避免全国性恐慌）</li>
+    <li>地震误报可能造成严重社会恐慌和经济损失</li>
+  </ul>
+</section>
+
+<!-- ============== 第十一讲 ============== -->
+<section id="ch11" class="chapter">
+  <h1>第十一讲 · 烈度、场地效应与勘探地震学 <span class="source-tag">11.wav</span></h1>
+
+  <h2>11.1 震级与烈度的区别</h2>
+  <table class="tbl">
+    <tr><th>震级</th><th>烈度</th></tr>
+    <tr><td>地震本身能量大小（微观/仪器测量）</td><td>某地实际影响和破坏程度（宏观）</td></tr>
+    <tr><td>一次地震只有一个震级</td><td>不同地区烈度不同</td></tr>
+    <tr><td>里氏震级、面波震级等</td><td>中国采用<b>12度烈度表</b></td></tr>
+  </table>
+  <ul class="kp-list">
+    <li>日本采用7度表，俄罗斯采用10度表</li>
+    <li>震中距越近烈度通常越大（震中是极震区）</li>
+  </ul>
+
+  <h2>11.2 基本烈度（高频填空）</h2>
+  <div class="callout important">
+    基本烈度 = 未来<b>50年</b>内、一般场地条件下、具有<b>10%超越概率</b>的地震烈度值<br>
+    相当于 <b>475年一遇</b>最大地震烈度<br>
+    抗震设防烈度<b>6度及以上</b>地区建筑必须进行抗震设计
+  </div>
+
+  <h2>11.3 场地效应（高频选择/判断）</h2>
+  <ul class="kp-list">
+    <li>灾害不能只看震级：还看震源深度、震中距、地基条件、建筑抗震、人口密度</li>
+    <li><b>近震</b>高频成分强→对<b>低矮建筑</b>危害大</li>
+    <li><b>远震</b>长周期面波明显→对<b>高层建筑</b>影响大</li>
+    <li><b>盆地效应</b>：振幅增大、频率降低、持续时间变长（老师比喻：果冻碗）</li>
+    <li><b>盆地边缘效应</b>：直达波+反射波叠加→局部破坏增强</li>
+    <li>基岩场地比软弱填土更稳定；<b>填海造地、湖泊填埋地、冲积层地震风险更高</b></li>
+    <li>墨西哥地震中<b>10-14层建筑</b>破坏严重→共振与场地效应</li>
+    <li>烈度5度时：低矮建筑受损严重→更可能是<b>小震近震</b></li>
+  </ul>
+
+  <h2>11.4 勘探地震学</h2>
+  <ul class="kp-list">
+    <li>石油勘探三法：地质法、地球物理方法（97%是地震勘探）、钻探法</li>
+    <li>早期用折射法，后来<b>反射法占主导</b>（复杂地层中折射法易出错）</li>
+    <li>流程：野外采集→资料处理→资料解释</li>
+    <li>资料解释精度约<b>20%-30%</b>（30%已算不错）</li>
+    <li>勘探地震学用人工震源；天然地震学依赖天然地震</li>
+  </ul>
+
+  <h2>11.5 谣言辟谣方法（必考简答）</h2>
+  <p>判断地震谣言四点：①是否在地震带上；②是否有系统异常；③小震是否属于正常活动；④后续事实检验。柳州辟谣见"必考重点"。</p>
+</section>
+
+<!-- ============== 第十二讲 ============== -->
+<section id="ch12" class="chapter">
+  <h1>第十二讲 · 海啸与预警 <span class="source-tag">12.wav</span></h1>
+
+  <div class="callout important">
+    <strong>海啸核心公式（必考计算题）：</strong>$v = \sqrt{gH}$<br>
+    水越深，海啸速度越快；海啸是一种<b>浅水波</b>（水深远小于波长）<br>
+    课堂计算取 $g = 10 \text{m/s}^2$
+  </div>
+
+  <h2>12.1 海啸基本概念</h2>
+  <ul class="kp-list">
+    <li>Tsunami来自日语，意为"港口中的波浪"</li>
+    <li>海啸不是潮汐波！更准确是<b>seismic sea wave / 地震海波</b></li>
+    <li>钱塘江大潮是<b>潮汐现象</b>，不是海啸</li>
+    <li>海啸多由<b>浅源海底逆冲型大地震</b>引起（深源地震一般不引发海啸）</li>
+    <li>逆冲断层比走滑断层更容易引发海啸，但<b>不是所有海底地震都引发海啸</b></li>
+  </ul>
+
+  <h2>12.2 海啸物理特征</h2>
+  <table class="tbl">
+    <tr><th>参数</th><th>深海</th><th>近岸</th></tr>
+    <tr><td>速度</td><td>约500 miles/hour（约800 km/h）≈喷气式飞机</td><td>约30 m/s ≈汽车高速</td></tr>
+    <tr><td>波高</td><td>约0.5米（船通常感觉不到）</td><td>急剧增大（可达20米+）</td></tr>
+    <tr><td>波长</td><td>极长（100 miles以上/200km量级）</td><td>缩短</td></tr>
+  </table>
+  <ul class="kp-list">
+    <li>海啸是整个水体运动（风暴潮主要是表层水运动）</li>
+    <li>海啸周期可达45分钟到1小时</li>
+    <li>水深4km时速度约200m/s；水深1km时约100m/s；7200秒=2小时</li>
+  </ul>
+
+  <h2>12.3 海啸形成/致灾三条件</h2>
+  <ol><li><b>深海区</b></li><li><b>大震级</b></li><li><b>开阔、逐渐变浅的近岸条件</b></li></ol>
+
+  <h2>12.4 重大海啸事件与中国</h2>
+  <ul class="kp-list">
+    <li><b>2004年12月26日印度洋海啸</b>：死伤接近30万，最惨重海啸灾难→说明预警系统极重要</li>
+    <li>环太平洋地区海啸灾害约占全球<b>80%</b></li>
+    <li>1960年智利大地震海啸传播约2万公里到日本，约22小时</li>
+    <li>中国总体海啸风险<b>较低</b>：大陆架宽广/水浅、外有岛弧屏障、内有台湾/舟山屏障</li>
+    <li>中国四海中<b>南海</b>相对最可能发生较明显海啸（水较深）</li>
+    <li>渤海平均水深约20m，黄海约40m，东海约340m</li>
+    <li>2004年印度洋海啸在三亚记录约8cm</li>
+  </ul>
+
+  <h2>12.5 海啸预警与避险</h2>
+  <ul class="kp-list">
+    <li>预警依据：<b>地震波比海啸传播快</b> + 海啸波长长可被验潮站/卫星观测</li>
+    <li>太平洋海啸预警中心之一在<b>檀香山（火奴鲁鲁）</b></li>
+    <li>海水突然退去→可能是海啸<b>波谷</b>先到达→<b>马上往高处跑！</b></li>
+    <li>第一浪过后不能回家，可能还有第二浪！等官方解除警报</li>
+    <li>海啸来时船在深海比在港口更安全（风暴潮相反）</li>
+    <li>2米海啸可破坏小木屋；20米海啸破坏力极强</li>
+  </ul>
+
+  <h2>12.6 InSAR</h2>
+  <ul class="kp-list">
+    <li>InSAR/卫星干涉测距：用两次卫星雷达影像干涉探测地震形变</li>
+    <li><b>干涉条纹越密→位移变化越大</b></li>
+  </ul>
+</section>
+
+<!-- ============== 易错陷阱集锦 ============== -->
+<section id="traps" class="chapter">
+  <h1>易错陷阱集锦 <span class="source-tag non-courseware">自编</span></h1>
+  <div class="trap-grid">
+    <div class="trap"><b>地壳最硬？</b>错！地幔上部速度更大→更硬。判断题的高频陷阱。</div>
+    <div class="trap"><b>外核用首波发现？</b>错！外核是1906年奥尔德姆通过影区/低速异常发现的，不是用首波原理。莫霍面才是用首波发现的。</div>
+    <div class="trap"><b>倾角120°？</b>错！倾角范围0°—90°。若钝角120°→倾角取60°。</div>
+    <div class="trap"><b>走向角225° vs 45°</b>：断层东北—西南，朝东北看上盘在左侧→走向角225°（不是45°！）。上盘在右侧才是走向方向。</div>
+    <div class="trap"><b>深源地震地表破坏一定更大？</b>错！深源地震即使震级大，因为距离远，地表破坏可能小。灾害还看震源深度/震中距/地基/建筑。</div>
+    <div class="trap"><b>震级可以为负吗？</b>可以！小于1微米取对数为负。</div>
+    <div class="trap"><b>汶川是里氏8.0级？</b>严格说不是！里氏震级会饱和。汶川更应理解为面波震级或矩震级体系下的8级左右。</div>
+    <div class="trap"><b>候风地动仪能预报地震？</b>不能！它更接近检测器/验震器，利用惯性原理指示方向，不能预报时间和震级。</div>
+    <div class="trap"><b>海城预报成功=地震预报已解决？</b>错！一次成功不等于可重复。海城有特殊历史条件，唐山就没有预报成功。</div>
+    <div class="trap"><b>动物异常=一定地震？</b>错！地震前兆与地震发生既非充分条件也非必要条件。目前没有可靠的充要前兆。</div>
+    <div class="trap"><b>震级ML和MW一样？</b>不一样！MW（矩震级）不属于里氏震级系统，有物理意义，不会饱和。</div>
+    <div class="trap"><b>钱塘江大潮是海啸？</b>错！是潮汐现象。海啸=地震海波。</div>
+  </div>
+</section>
+
+<!-- ============== 选择填空判断真题 ============== -->
+<section id="exam-choice" class="chapter">
+  <h1>选择 · 填空 · 判断题精选 <span class="source-tag non-courseware">历年真题+自编</span></h1>
+
+  <h2>选择题</h2>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">某地震震中距为600公里，按课堂口径属于哪类地震？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>地方震</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>近震</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>远震</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>深源震</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">B。600km在100-1000km之间，属于近震。地方震<100km，远震>1000km。</div></div>
+
+  <div class="mcq" data-ans="3"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">在近震走时曲线中，哪一个震相斜率最大？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>Pn</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>Pg</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>Sn</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>Sg</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">D，Sg。斜率与速度倒数有关，Sg速度最小，所以斜率最大。Pn速度最大，斜率最小。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">如果某断层面与水平面的钝角为120°，其倾角应记为多少？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>30°</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>60°</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>90°</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>120°</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">B，60°。倾角范围0°—90°，若钝角120°→倾角取180°-120°=60°。</div></div>
+
+  <div class="mcq" data-ans="0"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">烈度均为5度的区域，低矮建筑物受损最严重的地震更可能是哪类？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>小震近震</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>大震远震</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>深源远震</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>远洋地震</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">A。近震高频成分强，对低矮建筑危害大。远震长周期面波明显，对高层建筑影响大。</div></div>
+
+  <div class="mcq" data-ans="0"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">实际区域结构反演中，8.2、6.2、4.2、2.2级地震，最适合选哪个？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>6.2级</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>8.2级</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>4.2级</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>2.2级</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">A，6.2级。8.2级太大不能点源近似；4.2和2.2级太小信噪比低。</div></div>
+
+  <div class="mcq" data-ans="3"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">迄今发现的地震前兆是地震发生的什么条件？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>充分条件</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>必要条件</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>充要条件</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>既非充分也非必要条件</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">D。目前没有找到可靠的充要地震前兆。出现动物异常不等于一定发生地震。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">下列最可能是地下核爆炸的是哪种事件？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>深源、S波强、波形复杂</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>浅源、P波强、S波弱、波形较简单</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>深源、面波强、S波强</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>多次余震持续很久</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">B。理想核爆：震源浅、以P波为主（强）、S波弱、波形较简单、震源机制近似全压缩（全黑）型。</div></div>
+
+  <div class="mcq" data-ans="3"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">在中国海域中，发生海啸可能性最大的是哪一个？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>渤海</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>黄海</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>东海</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>南海</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">D，南海。南海较深（渤海约20m/黄海约40m/东海约340m），水深有利于海啸形成和传播。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">最后一节课看的电影《大地震》中，大地震发生时助理第一时间干了什么？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>打电话通知市长</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>检查地震仪然后躲到桌子下</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>冲出大楼</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>拉响警报</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">B。地震局人员遇到地震做的事：看一眼仪器，躲在桌子底下。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">东西走向的断层，面向正东方向时上盘在右边，走向是多少度？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>0°</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>90°</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>180°</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>270°</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">B，90°。正北参考，面向东（90°方向）时上盘在右侧→走向角即90°。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">选择</span><div class="mcq-stem">在宏观烈度大体相同条件下，哪类建筑震害更严重？</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>近震中的低矮建筑</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>大震远震中的高耸建筑</span></div><div class="mcq-opt"><span class="opt-label">C.</span><span>深源地震中的所有建筑</span></div><div class="mcq-opt"><span class="opt-label">D.</span><span>都一样</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">B。大震远震长周期面波明显，高层建筑更容易响应长周期波，震害更严重。近震高频强对低矮建筑影响大。</div></div>
+
+  <h2>判断题</h2>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">地壳是地球介质中最硬的部分。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。地幔上部速度更大，说明更硬。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">地球外核是用首波（折射波原理）发现的。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。外核是1906年奥尔德姆通过影区/低速异常发现的。莫霍面才是1909年通过首波原理发现的。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">断层倾角可以是120°。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。倾角范围0°—90°。若看到120°应取180°-120°=60°。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">震级和烈度是同一个概念。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。震级表示地震能量大小（微观），一次地震只有一个震级。烈度表示某地实际影响和破坏程度（宏观），不同地区烈度不同。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">逆冲型大地震必然会引发海啸。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。逆冲型大地震更容易引发海啸，但地震与海啸不是一一对应关系，不是必然引发。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">钱塘江大潮是海啸。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。钱塘江大潮是潮汐现象，不是海啸。海啸=地震海波。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">海啸预警后，船只停在港口比驶向深海更安全。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。海啸来时，船在深海比在港口更安全（深海波高小）。风暴潮相反，常需入港避风。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">海城地震预报成功说明地震预报已经完全解决。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。可靠预报必须具有可重复性，一次海城成功不能复制到所有地震（唐山就没有预报成功）。海城有特殊历史背景。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">地震预报可以由任何个人发布。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。地震预报由省级人民政府发布（地震影响具有区域性）。个人不能随意发布地震预报。</div></div>
+
+  <div class="mcq" data-ans="1"><div class="mcq-head"><span class="q-tag">判断</span><div class="mcq-stem">全球最大地震通常发生在洋中脊。</div></div>
+  <div class="mcq-opts"><div class="mcq-opt"><span class="opt-label">A.</span><span>正确</span></div><div class="mcq-opt"><span class="opt-label">B.</span><span>错误</span></div></div>
+  <div class="mcq-actions"><button class="mcq-reveal">直接看答案</button></div><div class="mcq-explain">×。全球最大地震多发生在海沟/俯冲带（如1960年智利9.5级）。洋中脊地震一般规模不大。</div></div>
+
+  <h2>填空题</h2>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">全球每年大约发生______万次地震。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>50</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">唐山大地震死亡人数约为______万人。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>24.5</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">1556年陕西华县大地震死亡约______万人，发生在明朝______年间。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>83</b>；<b>嘉靖</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">震源深度为400公里的地震属于______源地震。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>深</b>（>300km为深源地震）</div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">候风地动仪是东汉张衡于公元______年创制的，利用的是______原理。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>132</b>；<b>惯性</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">1966年河北______地震后，中国加强了地震工作部署；______年成立了国家地震局。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>邢台</b>；<b>1971</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">1°震中距约等于______公里。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>110</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">分开地壳和地幔的界面称为______面，是______年由莫霍洛维奇发现的。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>莫霍</b>；<b>1909</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">______年丹麦地震学家英格·莱曼发现了地球内核。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>1936</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">断层倾角的范围是______度到______度。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>0</b>；<b>90</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">魏格纳于______年提出大陆漂移学说。海底扩张学说大约于______年提出。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>1915</b>；<b>1962</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">六大板块包括欧亚、非洲、美洲、太平洋、印度—澳大利亚和______板块。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>南极洲</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">地震能量与震级关系式为 $\log E =$ ______ $+$ ______ $M$。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>11.8</b>；<b>1.5</b>。E单位：尔格(erg)。</div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">震级差一级能量约差______倍；差两级约差______倍。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>32</b>；<b>1000</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">1962年3月19日，广东河源______水库发生水库诱发地震。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>新丰江</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">里氏震级由Richter于______年在______（机构名称）提出。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>1935</b>；<b>加州理工学院</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">实际三维地震定位一般至少需要______个台站。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>4</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">海城地震发生于______年2月4日，震级约______级。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>1975</b>；<b>7.3</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">基本烈度指未来______年内，具有______%超越概率的地震烈度值，相当于______年一遇。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>50</b>；<b>10</b>；<b>475</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">海啸在深海传播速度可达约______miles/hour，约______km/h。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>500</b>；<b>800</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">印度洋海啸发生于______年12月26日。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>2004</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">月球上的月震分为四种：______、______、______、______。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>深源月震、浅源月震、热月震、撞击月震</b></div></div>
+
+  <div class="openq"><div class="openq-head"><span class="q-tag">填空</span><div class="openq-stem">火星震探测出火星______km深度有液态铁核。</div><button class="openq-toggle">查看答案</button></div><div class="openq-answer"><b>1830</b></div></div>
+</section>
+
+<!-- ============== 简答论述题 ============== -->
+<section id="exam-short" class="chapter">
+  <h1>简答 · 论述题精解 <span class="source-tag non-courseware">历年真题+自编</span></h1>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag big">简答</span></div><div class="bigq-title">写出P波和S波的差异。</div></div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    <ol>
+      <li><b>速度：</b>P波速度比S波快，地震图上先出现P波。VP ≈ VS × √3。</li>
+      <li><b>振动方向：</b>P波振动方向与传播方向平行；S波振动方向与传播方向垂直。两者质点振动方向相互垂直。</li>
+      <li><b>分量强弱：</b>三分量地震图上P波垂直分量相对较强，S波水平分量相对较强。</li>
+      <li><b>频率：</b>S波低频成分比P波更丰富。</li>
+      <li><b>能量：</b>天然地震震源通常以剪切破裂为主，S波能量比P波强，杀伤力也更强。</li>
+      <li><b>体积变化与转动：</b>P波有体积变化无转动（无旋波）；S波有转动无体积变化（无散/等容波）。</li>
+      <li><b>传播介质：</b>P波可在固液气中传播；S波仅能在固体中传播（因此外核不能传S波→外核为液态）。</li>
+      <li><b>感觉：</b>地震时先上下颠（P波）后水平晃（S波）。</li>
+    </ol>
+  </div></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag big">简答</span></div><div class="bigq-title">为什么核幔边界叫古登堡面而非奥尔德姆面？</div></div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    1906年奥尔德姆通过影区/低速异常<b>发现</b>了液态外核的存在，但他并未精确确定核幔边界的位置。1914年，古登堡使用<b>反射震相</b>（信噪比高），更精确地<b>确定了</b>核幔边界约在地下2900km（现代值2891km）。由于古登堡的计算更精确，命名更与精确确定边界有关，因此核幔边界命名为古登堡不连续面。
+  </div></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag big">简答</span></div><div class="bigq-title">地震为什么预报精度不高？</div></div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    地震预报困难的原因有三点：<br>
+    ① <b>地球内部不可入</b>——无法直接观测震源深处的物理状态和变化过程；<br>
+    ② <b>大地震的非频发性</b>——大震样本少、周期长，难以积累足够的观测数据和经验；<br>
+    ③ <b>地震物理过程复杂</b>——地震是高度非线性过程，目前没有找到可靠的充要地震前兆，前兆与地震之间既非充分条件也非必要条件。<br>
+    三要素中<b>时间最难报准</b>，地点和强度相对容易。海城地震虽然预报成功但有其特殊历史条件，不能简单复制。
+  </div></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag big">简答</span></div><div class="bigq-title">现在地震是"变多了"还是"变少了"，为什么？</div></div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    人们感觉地震<b>"变多了"</b>，但全球地震活动水平并未显著增加，主要原因：<br>
+    ① 面波衰减慢、传播远，人们感受到的主要是面波；<br>
+    ② 随着城市化进程加速，人们从低矮平房搬入高楼中居住，以前感觉不到的小震现在也能感觉到（高层建筑对长周期面波更敏感）；<br>
+    ③ 信息传播速度和范围大幅扩大，地震信息更容易被公众知晓。
+  </div></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag big">论述</span></div><div class="bigq-title">2023年黑龙江五常县出现绚丽霞光，有人说这是地震前兆，两周内五常县必然发生灾难性大地震。请评析这种说法。</div></div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    这种说法缺乏科学依据，可以从以下角度评析：<br>
+    ① <b>地震前兆与地震发生之间既非充分条件也非必要条件</b>——目前没有找到可靠的充要地震前兆，霞光出现不等于必然发生大地震。<br>
+    ② <b>地震预报必须同时给出三要素（时间、地点、强度），且需要可重复性</b>——"两周内"是对时间的预测，但缺乏构造背景分析和系统异常的支撑。<br>
+    ③ <b>判断地震谣言</b>要看：是否在地震带上、是否有系统异常、小震是否属于正常活动、后续事实检验。霞光作为单一现象不足以构成地震预报依据。<br>
+    ④ <b>事实检验</b>：两周后若未发生大地震，说明该说法是错误的。"实践是检验真理的唯一标准"。<br>
+    ⑤ 地震预报由<b>省级人民政府</b>发布，个人不能随意发布地震预报，以免造成社会恐慌和经济损失。
+  </div></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag big">论述</span></div><div class="bigq-title">押题：抨击柳州地震的谣言（"柳州将发生灾难性大地震"）。</div></div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    <h4>辟谣四点：</h4>
+    <b>① 柳州不在地震带上</b>——柳州按课堂口径属于华南地块，整体稳定，不在强震带上，不容易形成大地震。<br>
+    <b>② 柳州没有发现其他异常</b>——没有地下水、动物、电磁等系统性异常，说明发生灾难性地震的可能性很小。<br>
+    <b>③ 偶尔发生几次小地震是正常的地震活动波动</b>——3级左右小震不等于大震前兆，属于正常地震活动。<br>
+    <b>④ 事实检验</b>——两周后没有发生大地震，谣言不攻自破。课堂原话："实践是检验真理的唯一标准"。<br>
+    缅甸约7.9级地震与印度板块—欧亚板块碰撞背景有关；柳州地震虽可能与区域构造背景有关，但简单称为缅甸地震余震较勉强。
+  </div></div>
+</section>
+
+<!-- ============== 计算题解析 ============== -->
+<section id="exam-calc" class="chapter">
+  <h1>计算题解析（每年只考这两道！）<span class="source-tag non-courseware">历年真题</span></h1>
+  <div class="callout important"><strong>考试只考以下两道计算题，每次数值可能微调但套路完全一致。</strong></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag solve">计算题一</span></div><div class="bigq-title">地震波Pn走时方程——求地幔顶部P波速度和地壳厚度</div></div>
+  <div class="bigq-stem">
+    <h4>题目原型（2023秋期末）：</h4>
+    <p>震源深度10km，地壳中地震波速度6km/s，测得走时方程斜率为0.125s/km，截距为3√7 s。求地幔顶部地震波的传播速度和地壳厚度。</p>
+    <h4>扩展原型（重点PDF）：</h4>
+    <p>一个震源深度为8km的地震，多个区域台站记到的Pn波走时直线的斜率为0.125s/km，截距为3√7 s。若均匀地壳内P波速度为6km/s，求地壳厚度。（答案：40km）</p>
+  </div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    <h4>解题思路：</h4>
+    <div class="step"><b>第一步：理解Pn波走时方程</b><br>Pn波是首波（莫霍面的折射波），走时方程可写为：$T = \frac{\Delta}{V_2} + t_0$<br>其中：斜率 $= 1/V_2$；$V_2$ 为地幔顶部P波速度；$t_0$ 为截距；$\Delta$ 为震中距</div>
+    <div class="step"><b>第二步：求地幔顶部P波速度 $V_2$</b><br>斜率 $= \frac{1}{V_2} = 0.125 \text{ s/km}$<br>$V_2 = \frac{1}{0.125} = \mathbf{8 \text{ km/s}}$</div>
+    <div class="step"><b>第三步：求地壳厚度 $H$</b><br>对于近地表震源，Pn波的截距 $t_0$ 与地壳厚度关系：<br>$t_0 = \frac{2H\cos i_c}{V_1}$<br>其中 $\sin i_c = V_1/V_2$（临界角）<br>$V_1 = 6 \text{ km/s}$（地壳P波速度），$V_2 = 8 \text{ km/s}$<br>$\sin i_c = \frac{6}{8} = 0.75$，$\cos i_c = \sqrt{1 - 0.75^2} = \sqrt{0.4375}$<br><br>对于震源深度 $h = 10\text{ km}$ 的情况，截距：<br>$t_0 = \frac{(2H - h)\sqrt{V_2^2 - V_1^2}}{V_1 V_2}$<br>$3\sqrt{7} = \frac{(2H - 10)\sqrt{64 - 36}}{6 \times 8}$<br>$3\sqrt{7} = \frac{(2H - 10)\sqrt{28}}{48}$<br>$3\sqrt{7} = \frac{(2H - 10) \cdot 2\sqrt{7}}{48}$<br>解得：$H = \mathbf{41 \text{ km}}$</div>
+    <div class="step"><b>答案：</b>地幔顶部P波速度 <b>8 km/s</b>；地壳厚度 <b>41 km</b>（震源10km时）。<br>若震源深度8km，类似计算得地壳厚度约<b>40 km</b>。</div>
+  </div></div>
+
+  <div class="bigq"><div class="bigq-head"><div class="bigq-tag-row"><span class="q-tag solve">计算题二</span></div><div class="bigq-title">海啸速度——求海啸从A到D的最短时间</div></div>
+  <div class="bigq-stem">
+    <h4>核心公式：</h4>
+    <p>$v = \sqrt{gH}$（$g = 10 \text{ m/s}^2$，$H$ 为水深）</p>
+    <h4>题目原型（2023秋期末）：</h4>
+    <p>取 $g = 10 \text{ m/s}^2$，求海啸从A到D的时间。（答案：7200s）</p>
+    <h4>典型数值：</h4>
+    <p>海啸传播路径上各段水深和距离已知，求总时间。最简情况：水深4km，距离一定时，$v = \sqrt{10 \times 4000} = 200 \text{ m/s}$，时间 = 距离/速度。</p>
+  </div>
+  <div class="bigq-actions"><button class="bigq-toggle">→ 查看解答</button></div>
+  <div class="bigq-solution">
+    <h4>解题步骤：</h4>
+    <div class="step"><b>第一步：理解公式</b><br>$v = \sqrt{gH}$ 是浅水波传播速度公式<br>$g = 10 \text{ m/s}^2$（课堂统一取值）<br>$H$：水深（单位：米）<br>$v$：海啸传播速度（单位：m/s）<br><b>水越深，海啸速度越快。</b></div>
+    <div class="step"><b>第二步：分段计算时间</b><br>假设计算路径上各段距离和水深如下（以典型题目为例）：<br>● 水深4km → $v_1 = \sqrt{10 \times 4000} = 200\text{ m/s}$<br>● 水深1km → $v_2 = \sqrt{10 \times 1000} = 100\text{ m/s}$<br>每段时间 = 该段距离 ÷ 该段速度<br>总时间 = 各段时间之和</div>
+    <div class="step"><b>第三步：计算总时间</b><br>若路径距离和深度信息完整：<br>$T = \frac{d_1}{v_1} + \frac{d_2}{v_2} + ...$<br>典型题目答案：<b>7200秒 = 2小时</b></div>
+    <div class="step"><b>关键数值记忆：</b>
+    <ul>
+      <li>深海：速度约 200 m/s（水深4km）→ ~800 km/h ≈ 500 miles/hour</li>
+      <li>近岸：速度约 30 m/s（≈ 汽车高速）</li>
+      <li>7200秒 = 2小时</li>
+    </ul>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============== 互动自测 ============== -->
+<section id="self-test" class="chapter">
+  <h1>互动自测 · 自动打分 <span class="source-tag non-courseware">自编题库</span></h1>
+  <p class="section-intro">下列题目随机覆盖十二讲核心考点。作答后实时计分，可"重做"或"显示全部答案"。</p>
+  <div class="test-header">
+    <div><h3>地震概论期末自测</h3><div class="score"><span id="scoreNum">0</span> / <span id="scoreTotal">0</span> <small id="scorePct"></small></div></div>
+    <div class="test-controls">
+      <button class="btn btn-primary" id="btnReset">重做全部</button>
+      <button class="btn btn-ghost" id="btnRevealAll">显示全部答案</button>
+    </div>
+  </div>
+  <div id="testList"></div>
+</section>
+
+<!-- ============== 考前速查表 ============== -->
+<section id="cheatsheet" class="chapter">
+  <h1>考前速查表 <span class="source-tag non-courseware">精简版</span></h1>
+
+  <h2>关键年份</h2>
+  <table class="tbl">
+    <tr><th>年份</th><th>事件</th><th>人物</th></tr>
+    <tr><td>132</td><td>候风地动仪</td><td>张衡</td></tr>
+    <tr><td>1522</td><td>环球航行证明地球是圆的</td><td>麦哲伦船队</td></tr>
+    <tr><td>1556</td><td>华县大地震（83万人）</td><td>明朝嘉靖</td></tr>
+    <tr><td>1755</td><td>里斯本大地震</td><td>—</td></tr>
+    <tr><td>1785</td><td>均变论</td><td>Hutton</td></tr>
+    <tr><td>1880-1890</td><td>实用现代地震仪出现</td><td>访日英国人</td></tr>
+    <tr><td>1906</td><td>发现液态外核</td><td>奥尔德姆</td></tr>
+    <tr><td>1909</td><td>发现莫霍面</td><td>莫霍洛维奇</td></tr>
+    <tr><td>1911</td><td>弹性回跳理论</td><td>里德</td></tr>
+    <tr><td>1914</td><td>确定核幔边界（古登堡面）</td><td>古登堡</td></tr>
+    <tr><td>1915</td><td>大陆漂移学说</td><td>魏格纳</td></tr>
+    <tr><td>1920</td><td>海原大地震→推动中国现代地震研究</td><td>—</td></tr>
+    <tr><td>1930</td><td>北京鹫峰地震台</td><td>李善邦、秦馨菱</td></tr>
+    <tr><td>1935</td><td>里氏震级</td><td>Richter（加州理工）</td></tr>
+    <tr><td>1936</td><td>发现内核</td><td>英厄·莱曼</td></tr>
+    <tr><td>1960</td><td>智利9.5级大地震（全球最大）</td><td>—</td></tr>
+    <tr><td>1962</td><td>海底扩张学说；新丰江水库地震</td><td>—</td></tr>
+    <tr><td>1966</td><td>邢台大地震</td><td>—</td></tr>
+    <tr><td>1971</td><td>国家地震局成立</td><td>—</td></tr>
+    <tr><td>1975</td><td>海城地震成功预报（2月4日,7.3级）</td><td>—</td></tr>
+    <tr><td>1976</td><td>唐山大地震（7月28日,24.5万人）</td><td>—</td></tr>
+    <tr><td>2004</td><td>印度洋海啸（12月26日,~30万人）</td><td>—</td></tr>
+  </table>
+
+  <h2>核心数字</h2>
+  <table class="tbl">
+    <tr><th>数据</th><th>数值</th></tr>
+    <tr><td>全球每年地震</td><td>约50万次</td></tr>
+    <tr><td>7级以上/年</td><td>约17-18次</td></tr>
+    <tr><td>8级以上/年</td><td>约1-2次</td></tr>
+    <tr><td>21世纪预计死于地震</td><td>1500万人</td></tr>
+    <tr><td>浅/中/深源界线</td><td>60km / 300km</td></tr>
+    <tr><td>地方/近/远震界线</td><td>100km / 1000km</td></tr>
+    <tr><td>1°震中距</td><td>≈110km</td></tr>
+    <tr><td>P波速度（近似）</td><td>约8 km/s（地壳约6.2）</td></tr>
+    <tr><td>S波速度（近似）</td><td>约4 km/s（地壳约3.5）</td></tr>
+    <tr><td>莫霍面深度</td><td>大陆约35km</td></tr>
+    <tr><td>古登堡面深度</td><td>约2900km（现代2891km）</td></tr>
+    <tr><td>倾角范围</td><td>0°—90°</td></tr>
+    <tr><td>走向角范围</td><td>0°—360°</td></tr>
+    <tr><td>大西洋扩张速度</td><td>约2.5 cm/年</td></tr>
+    <tr><td>海洋地壳年龄</td><td><2-3亿年</td></tr>
+    <tr><td>大陆岩石年龄</td><td>可达约40亿年</td></tr>
+    <tr><td>logE=11.8+1.5M</td><td>差1级≈32倍；差2级≈1000倍</td></tr>
+    <tr><td>1焦耳</td><td>=10⁷尔格</td></tr>
+    <tr><td>震级差一级数量</td><td>约少10倍</td></tr>
+    <tr><td>震中定位精度</td><td>约10km</td></tr>
+    <tr><td>震源深度精度</td><td>约20km</td></tr>
+    <tr><td>震级测定误差</td><td>约0.3级</td></tr>
+    <tr><td>里氏震级标准距离</td><td>100km</td></tr>
+    <tr><td>中国烈度表</td><td>12度</td></tr>
+    <tr><td>基本烈度</td><td>50年/10%/475年一遇</td></tr>
+    <tr><td>抗震设防烈度</td><td>≥6度</td></tr>
+    <tr><td>勘探解释精度</td><td>20%-30%</td></tr>
+    <tr><td>深海海啸速度</td><td>~800 km/h ≈ 500 miles/h</td></tr>
+    <tr><td>近岸海啸速度</td><td>约30 m/s</td></tr>
+    <tr><td>环太平洋海啸占比</td><td>约80%</td></tr>
+    <tr><td>智利→日本海啸</td><td>约22小时/2万公里</td></tr>
+    <tr><td>火星液态铁核深度</td><td>1830km</td></tr>
+  </table>
+
+  <h2>核心公式</h2>
+  <table class="tbl">
+    <tr><th>公式</th><th>含义</th></tr>
+    <tr><td>$v = \sqrt{gH}$（$g=10$）</td><td>海啸速度公式</td></tr>
+    <tr><td>$\log E = 11.8 + 1.5M$</td><td>地震能量-震级关系（E单位：尔格）</td></tr>
+    <tr><td>$\sin i_c = V_1/V_2$</td><td>临界角公式</td></tr>
+    <tr><td>$M = \lg A$</td><td>里氏震级定义（100km处，A单位微米）</td></tr>
+    <tr><td>震中距 ≈ P-S到时差 × 8</td><td>近震震中距快速估算</td></tr>
+  </table>
+</section>
+</div>
+</main>
+
+<script>
+// ===== KaTeX =====
+function renderMath(root) {
+  if (!window.renderMathInElement) return;
+  try {
+    renderMathInElement(root || document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false }
+      ],
+      throwOnError: false,
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    });
+  } catch (e) {}
+}
+
+function whenKatexReady(cb) {
+  if (window.renderMathInElement) { cb(); return; }
+  let tries = 0;
+  const t = setInterval(() => {
+    tries++;
+    if (window.renderMathInElement) { clearInterval(t); cb(); }
+    else if (tries > 50) { clearInterval(t); cb(); }
+  }, 100);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  whenKatexReady(() => {
+    renderMath();
+    initMCQ();
+    initOpenQ();
+    initBigQ();
+    initSelfTest();
+  });
+  initNavTracking();
+});
+
+// ===== Nav tracking =====
+function initNavTracking() {
+  const sections = document.querySelectorAll('.chapter');
+  const navItems = document.querySelectorAll('.nav-item');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const seen = new Set();
+
+  function updateNav() {
+    let current = '';
+    const scrollY = window.scrollY + 140;
+    sections.forEach(sec => {
+      if (sec.offsetTop <= scrollY) current = sec.id;
+    });
+    navItems.forEach(item => {
+      const isActive = item.getAttribute('href') === '#' + current;
+      item.classList.toggle('active', isActive);
+      if (isActive) item.scrollIntoView({ block: 'nearest' });
+    });
+    if (current) seen.add(current);
+    const pct = sections.length ? Math.round((seen.size / sections.length) * 100) : 0;
+    if (progressFill) progressFill.style.width = pct + '%';
+    if (progressText) progressText.textContent = pct + '%';
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+// ===== Utility =====
+function parseAnswerIndices(raw) {
+  if (Array.isArray(raw)) return raw.map(v => parseInt(v,10)).filter(Number.isInteger).sort();
+  if (typeof raw === 'number' && Number.isInteger(raw)) return [raw];
+  if (typeof raw === 'string') return raw.split(',').map(v => parseInt(v.trim(),10)).filter(Number.isInteger).sort();
+  return [];
+}
+
+function areSameArrays(a, b) {
+  if (a.length !== b.length) return false;
+  return a.every((v,i) => v === b[i]);
+}
+
+// ===== MCQ =====
+function initMCQ() {
+  document.querySelectorAll('.mcq').forEach(card => {
+    const ans = parseAnswerIndices(card.dataset.ans);
+    const opts = card.querySelectorAll('.mcq-opt');
+    if (!opts.length || !ans.length) return;
+    const explain = card.querySelector('.mcq-explain');
+    const actions = card.querySelector('.mcq-actions');
+    const groupName = 'mcq-' + Math.random().toString(36).slice(2);
+
+    opts.forEach((opt, idx) => {
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = groupName;
+      input.value = String(idx);
+      opt.prepend(input);
+
+      opt.addEventListener('click', e => {
+        if (card.classList.contains('answered')) return;
+        if (e.target === input) return;
+        input.checked = true;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+
+      input.addEventListener('change', () => {
+        if (card.classList.contains('answered')) return;
+        opts.forEach(item => {
+          const ctrl = item.querySelector('input');
+          item.classList.toggle('selected', ctrl.checked);
+          item.classList.toggle('pending', ctrl.checked);
+        });
+      });
+    });
+
+    function revealResult(selected, revealed) {
+      if (card.classList.contains('answered')) return;
+      card.classList.add('answered');
+      card.classList.add(revealed ? 'revealed' : (areSameArrays(selected, ans) ? 'correct' : 'wrong'));
+      opts.forEach((opt, idx) => {
+        const input = opt.querySelector('input');
+        const chosen = selected.includes(idx);
+        const correct = ans.includes(idx);
+        opt.classList.remove('pending');
+        opt.classList.toggle('selected', chosen);
+        opt.classList.toggle('correct', correct);
+        opt.classList.toggle('wrong', chosen && !correct);
+        opt.classList.toggle('missed', !chosen && correct);
+        opt.classList.add('disabled');
+        input.checked = chosen;
+        input.disabled = true;
+      });
+      if (explain) renderMath(explain);
+    }
+
+    let submit = actions ? actions.querySelector('.mcq-submit') : null;
+    if (!submit && actions) {
+      submit = document.createElement('button');
+      submit.type = 'button';
+      submit.className = 'mcq-submit';
+      submit.textContent = '提交答案';
+      actions.prepend(submit);
+    }
+    if (submit) {
+      submit.addEventListener('click', () => {
+        const selected = [];
+        opts.forEach((opt, idx) => {
+          if (opt.querySelector('input').checked) selected.push(idx);
+        });
+        if (!selected.length) return;
+        revealResult(selected, false);
+      });
+    }
+
+    const reveal = card.querySelector('.mcq-reveal');
+    if (reveal) {
+      reveal.addEventListener('click', () => revealResult([], true));
+    }
+  });
+}
+
+// ===== OpenQ =====
+function initOpenQ() {
+  document.querySelectorAll('.openq').forEach(card => {
+    const btn = card.querySelector('.openq-toggle');
+    const ans = card.querySelector('.openq-answer');
+    if (!btn || !ans) return;
+    let rendered = false;
+    btn.addEventListener('click', () => {
+      const shown = card.classList.toggle('shown');
+      btn.textContent = shown ? '收起' : '查看答案';
+      if (shown && !rendered) { renderMath(ans); rendered = true; }
+    });
+  });
+}
+
+// ===== BigQ =====
+function initBigQ() {
+  document.querySelectorAll('.bigq').forEach(card => {
+    const btn = card.querySelector('.bigq-toggle');
+    const sol = card.querySelector('.bigq-solution');
+    if (!btn || !sol) return;
+    let rendered = false;
+    btn.addEventListener('click', () => {
+      const shown = card.classList.toggle('shown');
+      if (shown && !rendered) { renderMath(sol); rendered = true; }
+    });
+  });
+}
+
+// ===== Self-Test =====
+const QUIZ_BANK = [
+  { stem: '全球每年大约发生多少次地震？', opts: ['约5万次', '约50万次', '约500万次', '约5000万次'], ans: 1, exp: '全球每年约50万次地震，但大多数人感觉不到（有感地震不到1%）。' },
+  { stem: '1556年华县大地震死亡约多少人？', opts: ['约24.5万人', '约50万人', '约83万人', '约150万人'], ans: 2, exp: '1556年陕西华县大地震（明朝嘉靖年间）死亡约83万人，是中国历史上死亡人数最多的地震。' },
+  { stem: '震源深度为400公里的地震属于哪类？', opts: ['浅源地震', '中源地震', '深源地震', '超深源地震'], ans: 2, exp: '深源地震：>300km。400km属于深源。浅源≤60km，中源60-300km。' },
+  { stem: 'P波和S波的主要差异，以下哪个说法错误？', opts: ['P波速度比S波快', 'P波可穿过液体，S波不能', 'P波垂直分量通常较强', 'S波有体积变化，无转动'], ans: 3, exp: 'S波有转动，无体积变化（无散/等容波）。P波才有体积变化，无转动。' },
+  { stem: '莫霍面是哪一年由谁发现的？', opts: ['1906年，奥尔德姆', '1909年，莫霍洛维奇', '1914年，古登堡', '1936年，莱曼'], ans: 1, exp: '1909年，克罗地亚地震学家莫霍洛维奇通过首波发现莫霍面（壳幔边界）。' },
+  { stem: '以下哪个关于震级的说法正确？', opts: ['震级不能为负', '里氏震级适合所有大小地震', '矩震级(MW)不属于里氏震级系统', '1cm振幅在100km处对应M=3'], ans: 2, exp: '矩震级(MW)不属于里氏震级系统，有物理意义，不会饱和。震级可以为负（小于1微米）；里氏震级会饱和；100km处1cm对应M=4。' },
+  { stem: '板块构造三部曲的正确顺序是？', opts: ['板块构造→海底扩张→大陆漂移', '大陆漂移→海底扩张→板块构造', '海底扩张→大陆漂移→板块构造', '大陆漂移→板块构造→海底扩张'], ans: 1, exp: '三部曲：大陆漂移（1915魏格纳）→海底扩张（1962）→板块构造。' },
+  { stem: '海啸传播速度公式为？', opts: ['v=gh', 'v=√gH', 'v=gH', 'v=H√g'], ans: 1, exp: '海啸速度公式 v=√(gH)，g取10m/s²，H为水深。水越深速度越快。' },
+  { stem: '地震预报三要素中，最难准确预报的是？', opts: ['时间', '地点', '强度/震级', '震源深度'], ans: 0, exp: '三要素：时间、地点、强度（震级）。其中时间最难报准。地点相对容易（看断层/板块边界），强度也相对容易（海沟出大震/洋中脊出小震）。' },
+  { stem: '以下关于海城地震说法正确的是？', opts: ['发生在1976年', '震级约7.3级', '预报完全精准', '说明地震预报已完全解决'], ans: 1, exp: '海城地震：1975年2月4日19:36，7.3级。预报震级不准（预报5-6级），一次成功不等于地震预报已解决。' },
+  { stem: '2004年印度洋海啸死亡/失踪人数接近？', opts: ['约10万', '约20万', '约30万', '约50万'], ans: 2, exp: '2004年12月26日印度洋海啸，死亡/伤亡接近30万，是有史以来最惨重的海啸灾难。' },
+  { stem: '月球上的月震分为几种？', opts: ['2种', '3种', '4种', '5种'], ans: 2, exp: '月震分四种：深源月震、浅源月震、热月震、撞击月震。月震和火星震持续时间较长，月球和火星上没有板块构造。' },
+  { stem: '地震波在界面处，以下哪种转换不可能发生？', opts: ['P→SV', 'SV→P', 'SH→P', 'P→P（反射）'], ans: 2, exp: 'SH波不能与P波/SV波发生波型转换（因为SH振动方向垂直于入射面）。P波和SV波可以相互转换。' },
+  { stem: '中国采用几度烈度表？', opts: ['7度', '10度', '12度', '5度'], ans: 2, exp: '中国采用12度烈度表（日本7度、俄罗斯10度）。抗震设防烈度6度及以上必须进行抗震设计。' },
+  { stem: '关于海水退去，以下正确的是？', opts: ['可以下去捡鱼', '可能是海啸波谷先到，应往高处跑', '说明海啸已过，安全了', '与海啸无关'], ans: 1, exp: '海水突然退去可能是海啸波谷先到达，必须马上往高处跑！第一浪后不能回家，可能有第二浪。' },
+  { stem: '印尼（印度尼西亚）有大量活火山且地震频发，主要原因是？', opts: ['位于非洲板块内部', '处于板块俯冲汇聚边界', '处于大洋中脊扩散边界', '位于大陆内部断裂带'], ans: 1, exp: '印尼处于印度—澳大利亚板块与欧亚板块的俯冲汇聚边界，洋—洋/洋—陆碰撞形成岛弧、海沟和火山带。' },
+  { stem: '候风地动仪的发明年份是？', opts: ['公元前132年', '公元132年', '公元232年', '公元332年'], ans: 1, exp: '候风地动仪由东汉张衡于公元132年（阳嘉元年）创制，利用惯性原理，八条龙代表八个方向，本质上属于验震器。' },
+  { stem: '1522年麦哲伦船队完成环球航行，证明？', opts: ['地球是平的', '地球是圆的', '地球内部有液态外核', '板块在运动'], ans: 1, exp: '1522年9月6日麦哲伦船队完成第一次环球航行，证明了地球是圆的。' },
+  { stem: '以下哪个不属于地震次生灾害？', opts: ['火灾', '海啸', '地面振动', '煤气泄漏'], ans: 2, exp: '地面振动是地震的原生灾害。火灾、海啸、水灾、煤气泄漏、瘟疫等都是地震的次生灾害。' },
+  { stem: '钱塘江大潮属于什么现象？', opts: ['海啸', '风暴潮', '潮汐现象', '地震波'], ans: 2, exp: '钱塘江大潮是潮汐现象，不是海啸。海啸（Tsunami）由海底地震等引起，更准确称为地震海波。' },
+  { stem: '火星探测显示火星内部多少公里深处存在液态铁核？', opts: ['约1000km', '约1500km', '约1830km', '约2900km'], ans: 2, exp: '火星震探测出火星1830km深度有液态铁核。地球的核幔边界约在2900km（古登堡面）。' },
+  { stem: '基本烈度相当于多少年一遇的最大地震烈度？', opts: ['100年', '200年', '475年', '1000年'], ans: 2, exp: '基本烈度：未来50年内、10%超越概率，相当于475年一遇最大地震烈度。' },
+  { stem: '地震震级差两级，能量相差约多少倍？', opts: ['约2倍', '约32倍', '约100倍', '约1000倍'], ans: 3, exp: '根据logE=11.8+1.5M，震级差1级能量约差32倍（~10^1.5），差2级约差1000倍（~10^3 = 32×32）。' },
+  { stem: '全球死亡人数超过20万人的大地震共有几次？', opts: ['4次', '6次', '8次', '10次'], ans: 1, exp: '共6次，其中中国占4次（包括唐山24.5万、华县83万等），说明中国地震灾害非常严重。' },
+  { stem: '以下哪个不是地震预报方法？', opts: ['地震地质方法', '统计方法', '前兆方法', '重力反演方法'], ans: 3, exp: '地震预报三种方法：地震地质方法、统计方法、前兆方法。重力反演属于地球物理勘探方法。' },
+  { stem: '勘探地震学中，反射法优于折射法的重要原因？', opts: ['设备更便宜', '复杂地层中更可靠、信噪比较高', '不用人工震源', '速度更快'], ans: 1, exp: '折射法在复杂地层中容易解释错误，反射法更可靠、信噪比更高，因此后期反射法占主导。' },
+  { stem: '以下哪种海啸避险行为是正确的？', opts: ['强震后在海边看浪', '海水退去后下去捡鱼', '第一浪过后马上回家', '海水异常退去时立即往高处跑'], ans: 3, exp: '遇海啸正确避险：往高处跑、海水退去立即远离海岸、第一浪后不能回家（可能还有第二浪）、等官方解除警报。' },
+  { stem: '1966年河北哪次地震后，中国加强了地震工作部署？', opts: ['唐山地震', '海城地震', '邢台地震', '海原地震'], ans: 2, exp: '1966年河北邢台地震后加强地震工作，1971年成立国家地震局。唐山地震是1976年，海城地震是1975年。' },
+  { stem: '板块构造中的转换边界相当于哪种断层？', opts: ['正断层', '逆断层', '走滑断层', '斜滑断层'], ans: 2, exp: '转换边界相当于走滑断层（如圣安德烈斯断层）。扩散边界→正断层，汇聚边界→逆冲断层。' },
+  { stem: '地震定位的三角测量法利用什么来估算震中距？', opts: ['P波振幅', '面波周期', 'P-S波到时差', '震源深度'], ans: 2, exp: '利用P波和S波的到时差估算震中距（约P-S到时差×8），三个台站画圆交会确定震中。' }
+];
+
+function initSelfTest() {
+  const testList = document.getElementById('testList');
+  if (!testList) return;
+  const scoreNum = document.getElementById('scoreNum');
+  const scoreTotal = document.getElementById('scoreTotal');
+  const scorePct = document.getElementById('scorePct');
+
+  let answeredCount = 0;
+  let correctCount = 0;
+  const totalQuestions = QUIZ_BANK.length;
+
+  function updateScore() {
+    if (scoreNum) scoreNum.textContent = correctCount;
+    if (scoreTotal) scoreTotal.textContent = totalQuestions;
+    if (scorePct) scorePct.textContent = totalQuestions ? '(' + Math.round((correctCount / totalQuestions) * 100) + '%)' : '';
+  }
+
+  function buildQuestion(q, index) {
+    const card = document.createElement('div');
+    card.className = 'test-q';
+    card.dataset.index = index;
+
+    const tag = document.createElement('span');
+    tag.className = 'q-tag';
+    tag.textContent = '选择';
+
+    const num = document.createElement('span');
+    num.className = 'q-num';
+    num.textContent = ' #' + (index + 1);
+
+    const stem = document.createElement('div');
+    stem.className = 'q-stem';
+    stem.innerHTML = q.stem;
+
+    const optsDiv = document.createElement('div');
+    optsDiv.className = 'opts';
+
+    q.opts.forEach((optText, optIdx) => {
+      const opt = document.createElement('div');
+      opt.className = 'opt';
+      opt.innerHTML = '<span style="font-weight:600;color:var(--accent);margin-right:4px;">' + String.fromCharCode(65 + optIdx) + '.</span> ' + optText;
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'test-' + index;
+      input.value = String(optIdx);
+      opt.prepend(input);
+
+      opt.addEventListener('click', e => {
+        if (card.classList.contains('answered')) return;
+        if (e.target === input) return;
+        input.checked = true;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+
+      input.addEventListener('change', () => {
+        if (card.classList.contains('answered')) return;
+        optsDiv.querySelectorAll('.opt').forEach(o => o.classList.remove('selected', 'pending'));
+        opt.classList.add('selected', 'pending');
+      });
+
+      optsDiv.appendChild(opt);
+    });
+
+    const actions = document.createElement('div');
+    actions.className = 'test-actions';
+    const submitBtn = document.createElement('button');
+    submitBtn.className = 'btn btn-accent btn-submit';
+    submitBtn.textContent = '提交答案';
+    actions.appendChild(submitBtn);
+
+    const explain = document.createElement('div');
+    explain.className = 'explain';
+    explain.innerHTML = '<b>正确答案：' + String.fromCharCode(65 + q.ans) + '</b>。' + q.exp;
+
+    submitBtn.addEventListener('click', () => {
+      if (card.classList.contains('answered')) return;
+      const selected = Array.from(optsDiv.querySelectorAll('input')).findIndex(inp => inp.checked);
+      if (selected < 0) return;
+      card.classList.add('answered');
+      const correct = selected === q.ans;
+      if (correct) correctCount++;
+      answeredCount++;
+
+      optsDiv.querySelectorAll('.opt').forEach((opt, oi) => {
+        opt.classList.add('disabled');
+        opt.classList.remove('selected', 'pending');
+        if (oi === q.ans) opt.classList.add('correct');
+        if (oi === selected && !correct) opt.classList.add('wrong');
+        if (oi === q.ans && !correct && oi !== selected) opt.classList.add('missed');
+      });
+
+      const badge = document.createElement('span');
+      badge.style.cssText = 'display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-left:6px;color:#fff;';
+      badge.style.background = correct ? 'var(--green)' : 'var(--hot)';
+      badge.textContent = correct ? '✓ 正确' : '✗ 错误';
+      card.querySelector('.q-num').appendChild(badge);
+
+      updateScore();
+      renderMath(explain);
+    });
+
+    card.appendChild(num);
+    card.appendChild(stem);
+    card.appendChild(optsDiv);
+    card.appendChild(actions);
+    card.appendChild(explain);
+    return card;
+  }
+
+  function buildAll() {
+    testList.innerHTML = '';
+    answeredCount = 0;
+    correctCount = 0;
+    QUIZ_BANK.forEach((q, i) => testList.appendChild(buildQuestion(q, i)));
+    updateScore();
+  }
+
+  buildAll();
+  updateScore();
+
+  document.getElementById('btnReset')?.addEventListener('click', buildAll);
+  document.getElementById('btnRevealAll')?.addEventListener('click', () => {
+    document.querySelectorAll('.test-q').forEach(card => {
+      const idx = parseInt(card.dataset.index);
+      const q = QUIZ_BANK[idx];
+      if (card.classList.contains('answered')) return;
+      const opts = card.querySelectorAll('.opt');
+      opts.forEach((opt, oi) => {
+        opt.classList.add('disabled');
+        opt.classList.remove('selected', 'pending');
+        if (oi === q.ans) opt.classList.add('correct');
+      });
+      card.classList.add('answered');
+      const badge = document.createElement('span');
+      badge.style.cssText = 'display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-left:6px;color:#fff;background:var(--text2);';
+      badge.textContent = '已查看';
+      card.querySelector('.q-num').appendChild(badge);
+      renderMath(card.querySelector('.explain'));
+    });
+  });
+}
+</script>
+</body>
+</html>

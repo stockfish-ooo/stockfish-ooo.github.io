@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>军事理论复习</title>
+<style>
+:root {
+    color-scheme: light;
+    --bg: #f8f5f0;
+    --card: #ffffff;
+    --text: #2c2416;
+    --text-light: #6b5e4a;
+    --border: #e0d8cc;
+    --accent: #8b4513;
+    --accent-light: #a0522d;
+    --red: #c0392b;
+    --sidebar-bg: #f0ebe0;
+    --sidebar-active: #e0d0b8;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --radius: 6px;
+    --max-width: 720px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+    font-family: "Noto Serif CJK SC", "SimSun", "STSong", "Songti SC", serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
+}
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 1rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+}
+.sidebar h2 {
+    font-size: 1.05rem;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+.sidebar nav a {
+    display: block;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.15s;
+}
+.sidebar nav a:hover { background: var(--sidebar-active); color: var(--text); }
+.sidebar nav a.active { background: var(--sidebar-active); color: var(--accent); font-weight: bold; }
+.sidebar .mode-switch {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+.sidebar .mode-switch button {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.82rem;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text-light);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.sidebar .mode-switch button:hover { border-color: var(--accent); color: var(--accent); }
+.sidebar .mode-switch button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* Main */
+.main {
+    flex: 1;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+    width: 100%;
+}
+.main h1 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+}
+.main .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+/* Lesson heading */
+.lesson-head {
+    font-size: 1.15rem;
+    color: var(--accent);
+    margin: 1.8rem 0 0.8rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--accent);
+}
+.lesson-head:first-of-type { margin-top: 0; }
+/* Card */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.8rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.card .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+}
+.card .q-num {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    white-space: nowrap;
+    min-width: 2rem;
+    padding-top: 0.1rem;
+}
+.card .q-text {
+    flex: 1;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+.card .q-years {
+    font-size: 0.78rem;
+    color: var(--red);
+    white-space: nowrap;
+}
+.card .q-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+.card .btn-toggle {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    font-family: inherit;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--accent);
+    transition: all 0.15s;
+}
+.card .btn-toggle:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.card .btn-toggle.shown { background: var(--accent-light); color: #fff; border-color: var(--accent-light); }
+.card .q-mastered { display: flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: #888; cursor: pointer; user-select: none; margin-left: auto; }
+.card .q-mastered input { width: 0.9rem; height: 0.9rem; cursor: pointer; accent-color: var(--accent); }
+.card.mastered { opacity: 0.55; }
+.card.mastered .q-text { text-decoration: line-through; text-decoration-color: #999; }
+.mode-switch button.filter-btn { border-style: dashed; }
+.mode-switch button.filter-btn.active { background: #27ae60; border-color: #27ae60; }
+.card .answer {
+    display: none;
+    margin-top: 0.7rem;
+    padding: 0.7rem 1rem;
+    background: #faf9f5;
+    border-left: 3px solid var(--accent-light);
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.75;
+    border-radius: 0 4px 4px 0;
+}
+.card .answer.show { display: block; }
+.card .answer ul { padding-left: 1.5rem; margin: 0.3rem 0; }
+.card .answer li { margin: 0.2rem 0; }
+/* Mobile hamburger */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 0.8rem;
+    left: 0.8rem;
+    z-index: 200;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+.overlay { display: none; }
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        height: 100vh;
+        transition: left 0.25s;
+    }
+    .sidebar.open { left: 0; }
+    .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 99;
+    }
+    .overlay.show { display: block; }
+    .hamburger { display: block; }
+    .main { padding: 1rem 0.8rem 3rem; }
+    .card { padding: 0.8rem; }
+}
+@media (min-width: 769px) {
+    .sidebar { position: sticky; }
+    .hamburger { display: none; }
+    .overlay { display: none !important; }
+}
+.footer {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSidebar()" title="菜单">☰</button>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+    <h2>军事理论复习</h2>
+    <nav id="nav"></nav>
+    <div class="mode-switch">
+        <button id="btn-seq" class="active" onclick="setMode('seq')">📋 顺序模式</button>
+        <button id="btn-rand" onclick="setMode('rand')">🎲 乱序模式</button>
+        <button id="btn-filter" class="filter-btn" onclick="toggleFilter()">🔍 只显示未掌握</button>
+    </div>
+</aside>
+
+<main class="main" id="main">
+    <p style="font-size:0.75rem;color:#999;margin-bottom:0;">made by stockfish and Claude</p>
+    <h1>军事理论思考题</h1>
+    <p class="subtitle">北京大学2025级 · 共92道思考题 · 点击"显示解析"查看答案</p>
+    <div id="content"></div>
+    <p class="footer">资料来源：课堂笔记、课件内容及历年考题</p>
+</main>
+
+<script>
+// ====== DATA ======
+const lessons = [
+{ id:"L01", title:"一、中国国防", qs:[
+{q:"1. 什么是国防？", y:"2025秋", a:'国防，是国家为防备和抵抗侵略、制止武装颠覆和分裂，保卫国家的主权、统一、领土完整、安全和发展利益所进行的军事活动，以及与军事有关的政治、经济、外交、科技、文化、教育等方面的活动。（《国防法》2020年12月26日修订）'},
+{q:"2. 国防的基本类型有哪些？", y:"2024秋", a:"扩张型（如美国）、自卫型（如中国）、联盟型（如美日、美韩）、中立型（如圣马力诺、瑞士）。"},
+{q:"3. 现代国防的基本特征是什么？", a:"@@多种斗争的角逐（政治、经济、科技、心理斗争等）@@战争潜力的转化（国土面积、地理位置、自然资源、人口数量与质量等）@@综合国力的抗衡（经济实力、国防实力、民族凝聚力）@@质量建设的道路——打破了兵多必胜的观念，人才是关键@@威慑作用的功能——和平时期国防的主要功能"},
+{q:"4. 中国的全民国防教育日是哪一天？", a:"9月的第三个星期六。"},
+{q:"5. 建国后的四次战争有哪些？", a:"抗美援朝战争（1950--1953）；中印边境自卫反击战（1962年10月）；中苏边境珍宝岛保卫战（1969年3月）；对越自卫还击战（1979年）。"},
+{q:"6. 新中国国防建设的主要成就有哪些？", y:"2024秋 2023秋", a:"@@铸造了一支能够支撑国家由大向强发展的人民军队——海军由近海防御型转向远海防卫型，空军由数量不足转向空天一体、攻防兼备，组建火箭军@@形成综合国防工业和国防科研体系@@建立了比较完善的国防动员体制"},
+{q:"7. 国防历史的发展演变及现实启示是什么？", a:"发展演变：古代国防的兴衰、近代国防的孱弱、当代国防的振兴。@@H:现实启示：@@经济发展是国防强大的物质基础；@@政治昌明是国防巩固的根本；@@国家统一和民族团结是国防强大的关键；@@保持忧患意识是国防巩固发展的前提；@@不能重防御而轻进攻，不能重陆轻海。"}
+]},
+{ id:"L02", title:"二、中国古代军事思想", qs:[
+{q:"1. 中国古代军事思想的发展历程可以分为哪几个阶段？", a:"形成阶段（夏商西周）、成熟阶段（春秋战国）、发展阶段（秦朝到五代十国）、体系阶段（宋元明清，960--1840年）。"},
+{q:"2. 中国古代军事思想的体系阶段是哪个时期，重要标志是什么？", a:"宋元明清（前期）。重要标志：宋朝《武经七书》。宋朝时期将七部经典兵书整合在一起，作为教范供学习训练。"},
+{q:"3. 《孙子兵法》一共有多少篇，第一篇和最后一篇的篇名是什么？", a:"共13篇。第一篇《计篇》，最后一篇《用间篇》。"},
+{q:"4. 《孙子兵法》提出的为将5条标准是什么？", y:"2025春", a:"智、信、仁、勇、严。"},
+{q:"5. 请谈一谈中国古代军事思想对当前的学习和以后的工作生活有哪些启示和借鉴作用？", a:"@@回望历史，增强民族自信心和自豪感@@凝望当下，激发奋进的驱动力和创新力@@展望未来，提振复兴的使命感与责任感"}
+]},
+{ id:"L03", title:"三、毛泽东军事思想", qs:[
+{q:"1. 什么是毛泽东军事思想？", a:"毛泽东军事思想，是以毛泽东为代表的中国共产党人关于中国革命战争和军队问题的科学理论体系。"},
+{q:"2. 什么是人民战争？", a:"人民战争，是指广大人民群众为反抗阶级压迫或外敌入侵而组织和武装起来进行的战争。其基本特征是战争的正义性和战争的群众性。"},
+{q:"3. 政治工作的三大原则是什么？", y:"2023秋", a:"官兵一致、军民一致、瓦解敌军。"},
+{q:"4. 毛泽东军事思想的主要内容有哪些？", y:"2025春 2024秋 2023秋 2025秋", a:'无产阶级的战争观和方法论、人民军队建设理论、人民战争思想、人民战争的战略战术、国防建设理论。（记忆口诀：一个阶级，三个"人民"，一个是现代化）'},
+{q:"5. 毛泽东军事思想的历史地位是什么？", a:"@@对马列主义军事理论作出了重大而独特的贡献@@在世界上具有广泛而深刻的影响@@永远是我军克敌制胜的法宝"},
+{q:'6. 毛泽东提出的"十六字诀"内容是什么？', a:"敌进我退、敌驻我扰、敌疲我打、敌退我追。"},
+{q:"7. 毛泽东人民军队建设理论的主要内容是什么？", a:"@@确立党对军队的绝对领导——党指挥枪、军队是党的工具@@提出军队教育训练的要求——坚定正确的政治方向、艰苦朴素的工作作风、灵活机动的战略战术@@确定政治工作三大原则——官兵一致、军民一致、瓦解敌军@@规定人民军队三大任务——打仗、做群众工作、生产"}
+]},
+{ id:"L04", title:"四、新军事革命", qs:[
+{q:"1. 什么是新军事革命？其主要标志是什么？", a:"世界新军事革命，是20世纪末期以来在世界范围内发生的一场以信息化为核心的全面而深刻的革命，包括军事技术、武器装备、体制编制、战争形态、军事理论、作战方式、军事训练等诸多方面的根本性变革。@@H:主要标志：@@信息化武器系统逐渐主宰战场；@@出现知识密集型的信息化军队；@@一体化联合作战成为基本作战形式；@@军事理论及其体系彻底革新；@@信息化战争最终取代机械化战争。"},
+{q:"2. 新军事革命的发展演变有哪些阶段？", a:"@@H:起步阶段（20世纪70年代--90年代）：@@精确制导武器、超视距探测跟踪系统、指挥自动化系统等出现，作战方式上出现超视距精确打击。@@H:展开阶段（20世纪90年代--21世纪10年代）：@@战争节奏快、烈度高、立体性强；@@掌握电磁空间的控制权对取得战争胜利具有重大意义；@@战略空袭已成为战争的独立阶段；@@技术保障和后勤保障是战争的重要物质基础。@@H:完成阶段（21世纪10年代--21世纪下半叶）：@@机器人部队和新概念兵器的出现，武器装备、军事理论、军队编制等都将发生根本性变革，全新的智能化军事体系将完全取代机械化军事体系。"},
+{q:"3. 新军事革命的主要内容是什么？", a:"军事技术的根本性变革、武器装备的根本性变革、军队体制编制的根本性变革、军事理论的根本性变革。"},
+{q:"4. 什么是中国特色军事变革？其主要内容是什么？", y:"2025春 2024秋 2025秋", a:"中国特色军事变革，是指为应对当代世界新军事革命挑战，从中国国情、军情出发，在军事领域实行的以信息化为本质特征和核心内容的全面性、系统性的革新。@@H:主要内容：@@发展方向为信息化、智能化；@@基本目标为打赢信息化智能化战争；@@基本途径为机械化信息化智能化融合发展；@@发展步骤与国家发展战略相适应；@@根本动力为改革创新；@@根本保证为坚持中国共产党的绝对领导。"},
+{q:'5. 国防和军队现代化建设新"三步走"战略是什么？', y:"2025春 2023秋", a:"@@H:第一步 到2027年：@@确保实现建军一百年奋斗目标，加快推进军事理论现代化、军队组织形态现代化、军事人员现代化、武器装备现代化@@H:第二步 到2035年：@@基本实现国防和军队现代化，机械化高度发达，信息化基本实现，智能化取得重大进展@@H:第三步 到本世纪中叶：@@把人民军队全面建成世界一流军队"},
+{q:"6. 随着国防和军队改革的深化，我军组织体制发生了哪些重大变化？", a:'@@组建成立信息支援部队、军事航天部队、网络空间部队等新的军种兵种@@提高军队技术含量，缩小军队规模@@军队编组实行跨军种、兵种合成@@指挥体制偏向"扁平网络化"发展@@部队编制小型化，一体化和多能化等'}
+]},
+{ id:"L05", title:"五、国家安全形势", qs:[
+{q:'1. "十五五"时期我国安全发展面临的形势？', a:'我国发展处于战略机遇和风险挑战并存、不确定难预料因素增多的时期。各种"黑天鹅""灰犀牛"事件随时可能发生。我们必须增强忧患意识，坚持底线思维，做到居安思危、未雨绸缪，准备经受风高浪急甚至惊涛骇浪的重大考验。'},
+{q:"2. 我国周边安全环境的总体特点是什么？", y:"2025秋", a:'"三多两乱"：邻国多、强国多、人口多，经济状态发展乱、国家之间关系乱。'},
+{q:"3. 新安全格局的核心内涵是什么？", a:"传统安全与非传统安全并重，自身安全与共同安全兼顾，维护安全和塑造安全统一。"},
+{q:"4. 总体国家安全观的核心内涵是什么？", y:"2025春 2024秋", a:"@@H:五大要素：@@以人民安全为宗旨；@@以政治安全为根本；@@以经济安全为基础；@@以军事、文化、社会安全为保障；@@以促进国际安全为依托。@@H:五对关系：@@既重视外部安全，又重视内部安全；@@既重视国土安全，又重视国民安全；@@既重视传统安全，又重视非传统安全；@@既重视发展问题，又重视安全问题；@@既重视自身安全，又重视共同安全。"}
+]},
+{ id:"L06", title:"六、美国基本军事情况", qs:[
+{q:"1. 美军领导管理与指挥体制最鲜明的特色是什么？", a:"军政和军令系统相对分离。"},
+{q:"2. 美军有哪几个军种？", a:"海军、陆军、空军、海军陆战队、海岸警卫队、太空军（六大军种）。"},
+{q:"3. 美军有哪几个战区司令部和职能司令部？", y:"2025春 2024秋 2025秋", a:"六大战区司令部：北方司令部、南方司令部、非洲司令部、欧洲司令部、中央司令部、印太司令部。五大职能司令部：战略司令部、军事运输司令部、特种作战司令部、网络司令部、太空司令部。"},
+{q:"4. 美国杜鲁门总统时期的军事战略是什么？", a:'"遏制"战略。'}
+]},
+{ id:"L07", title:"七、信息化作战平台", qs:[
+{q:"1. 什么是信息化作战平台？", a:"信息化作战平台是以信息化武器装备系统为核心，具有运载、投送和管理控制功能并可以作为武器依托的载体部分。"},
+{q:"2. 信息化作战平台通常分为哪几类？", y:"2025秋", a:"陆上信息化作战平台、海上信息化作战平台、空中信息化作战平台、太空（空间）信息化作战平台、无人作战平台。"},
+{q:"3. 什么是陆上信息化作战平台？", a:"陆上信息化作战平台是指大量采用信息技术的各类坦克、装甲车辆、自行火炮和导弹发射装置等。"},
+{q:"4. 海上信息化作战平台包括哪些？", a:"@@H:水面：@@航空母舰、巡洋舰、驱逐舰、护卫舰、两栖登陆舰、导弹艇、扫雷艇@@H:水下：@@常规潜艇和核动力潜艇"},
+{q:"5. 空间信息化作战平台是什么？", a:"空间信息化作战平台是指能实施各类太空信息支援、指挥，以及能对敌方卫星和空中、海上、陆地目标实施攻击的各类太空平台。"},
+{q:"6. 榴弹炮与加农炮的主要区别是什么？", a:"@@榴弹炮：身管较短、初速较小、弹道弯曲、射程较近@@加农炮：身管较长、初速较大、弹道低伸、射程较远"},
+{q:"7. 潜艇如何分类？", a:"按动力性质，可分为常规潜艇和核潜艇。核潜艇按照功能可分为弹道导弹核潜艇和攻击型核潜艇。"},
+{q:'8. 关于无人机，通常说的"察打一体"是指什么？', a:"侦察打击一体化。"},
+{q:"9. 航母编队通常包括哪些种类的舰艇？", a:"航空母舰、驱逐舰（美军可能编有巡洋舰）、护卫舰、潜艇、补给舰。"},
+{q:"10. 信息化作战平台发展趋势主要有哪些？", y:"2025春 2024秋", a:"@@隐身化@@无人化@@智能化"}
+]},
+{ id:"L08", title:"八、军事高技术与现代战争", qs:[
+{q:"1. 军事高科技的概念是什么？", a:"建立在现代科学技术成就基础上，处于当代科学技术前沿，以信息智能科技为核心，在军事领域发展和应用，对武器装备发展和现代战争演变起巨大推动作用的高科技总称。"},
+{q:"2. 军事高科技的主要特点有哪些？", y:"2025春 2024秋", a:"高智力、高投资、高竞争、高风险、高效益、高保密、高速度。"},
+{q:'3. 美国三次"抵消战略"的对象及内容分别是什么？', a:'第一次（20世纪50年代，艾森豪威尔）：对象为华约，"新面貌"战略，重点发展核武器（三位一体）。第二次（1981年，国防部长布朗）：对象为苏联，"抵消"战略，技术可以成为武装力量的"倍增器"，重点发展新技术常规武器。第三次（2014年11月，国防部长查克·哈格尔）：对象为中国，"拒止威慑"与"惩罚威慑"，重点发展基于"全球监视—精确打击"的联合作战体系。'},
+{q:"4. 新时代我军武器装备的地位作用是什么？", y:"2025春", a:"@@军队现代化的重要标志@@军事斗争准备的重要基础@@国家安全和民族复兴的重要支撑@@国际战略博弈的重要砝码"}
+]},
+{ id:"L09", title:"九、智能化战争", qs:[
+{q:"1. 智能化战争的概念是什么？", a:"智能化战争，是基于物联网网络信息系统，运用智能化武器装备及相应作战方法，在陆、海、空、天、电、网及认知领域进行的一体化战争。"},
+{q:"2. 智能化战争的科技源头有哪些？", a:"人工智能、大数据、算力与算法、无人系统与集群技术、数字孪生与仿真推演。人工智能是新一轮科技革命和产业变革的重要驱动力量。"},
+{q:"3. 智能化战争的主要特点有哪些？", y:"2025春 2024秋 2023秋 2025秋", a:"战争手段智能化，战场环境物联化，力量体系无人化，对抗方式集群化，指挥决策云脑化。（也有表述为：战争手段混合化。）"},
+{q:"4. 应对智能化战争的思考有哪些？", a:"@@全面更新智能化战争观念@@科学组建智能化军事力量@@创新发展人民战争战略战术"}
+]},
+{ id:"L10", title:"十、国防法规（义务兵征集）", qs:[
+{q:"1. 经济补助或补偿的主要内容是什么？", y:"2024秋 2023秋 2025秋", a:"2年义务兵期间，本科学生不低于31.43万元各类补助和补偿。包括：北大3万奖励金、义务兵优待金、补偿学费和代偿国家助学贷款、自主就业经济补助、部队津贴和退役金。"},
+{q:"2. 学业支持政策有哪些？", a:"@@H:休学延期：@@学生休学期间应征入伍的，可以办理服兵役休学延期@@学生试读期间应征入伍的，可以办理服兵役休学，试读期顺延@@H:延长学习年限：@@在校本科学生或本科新生应征入伍、退役后复学的，在校学习年限可在专业学制基础上适当延长，但在校学习总年限不得超过六年"},
+{q:"3. 升学优待政策有哪些？", a:"@@H:考研加分：@@在校本科学生和本科新生应征入伍服义务兵役退役、在完成本科学业后3年内参加全国硕士研究生招生考试，应届本科毕业生应征入伍服义务兵役、退役后3年内，初试总分加10分，同等条件下优先录取@@H:推荐免试：@@符合学校申请条件、专业排名在前80%以内或GPA在2.8以上的，经学校征兵工作办公室择优推荐，可以获得推免资格@@H:专项招生：@@从2021年起扩大了规模，由每年5000人扩大到8000人，重点向\"双一流\"建设高校倾斜"},
+{q:"4. 就业落户政策有哪些？", y:"2024秋 2023秋", a:"定向招聘政策：公务员考录、事业单位、国有企业、非公经济组织招聘，数量分别不低于当年列入人员范围退役大学生士兵人数的10%、15%、15%和10%。北京落户：非京籍大学本科学历以上，从本市入伍的退役士兵，被本市用人单位接收的，可以落户北京。"},
+{q:"5. 2026年应征报名时间是什么？", a:"@@H:男兵（上半年）：@@2025年12月1日至2026年2月10日18时@@H:男兵（下半年）：@@2025年12月1日至2026年8月10日18时@@H:女兵（上半年）：@@2026年1月1日至2026年2月10日18时@@H:女兵（下半年）：@@2026年7月1日至2026年8月10日18时"},
+{q:"6. 应征年龄要求是什么？", a:"@@H:男兵：@@大专、本科在校生18至22周岁@@本科毕业生18至24周岁@@研究生18至26周岁@@H:女兵：@@高校应届毕业生及在校生，年满18至22周岁"}
+]},
+{ id:"L11", title:"十一、国防动员", qs:[
+{q:"1. 国防动员的概念是什么？", a:"国防动员，是指国家为应对战争或其他威胁，采取非常措施将社会诸领域资源由平时状态转入战时状态或紧急状态的一系列活动，实质是将国家的潜在实力转化为战争实力。@@H:四要素：@@目的——应对战争或其他威胁@@主体——国家@@对象——国家可控的一切社会领域资源@@手段——非常时期采取的特别措施"},
+{q:"2. 国防动员如何分类？", a:"@@按动员规模分为局部动员和总动员@@按动员方式分为公开动员和秘密动员@@按动员时机分为应急动员和持续动员"},
+{q:"3. 国防动员的功能作用有哪些？", a:"@@战时应战——遏制战争、打赢战争的基础环节@@急时应急——应对紧急突发事件的有效措施@@平时服务——支援经济和社会发展的重要手段"},
+{q:"4. 国防动员的主要内容包括哪些？", y:"2025春 2024秋 2025秋", a:"政治动员、武装力量动员、国民经济动员、人民防空动员、交通战备动员。"},
+{q:"5. 国防动员的时代要求是什么？", a:"担当作为、勇于创新、培塑血性。"},
+{q:"6. 怎么理解武装力量动员？", a:"武装力量动员，是指为了应对战争、突发事件或紧急状态的需要，国家有计划、有组织地将军队和其他武装组织由平时状态转入战时状态所进行的一系列活动。"},
+{q:"7. 怎么理解人民防空动员？", a:"人民防空动员，是指国家发动和组织人民群众采取一系列措施，防范敌方空中袭击并减轻空袭后果的活动。"},
+{q:"8. 请结合俄乌冲突，阐述国防动员在应对战争中的重要作用（论述题）", a:"@@H:加速调动兵力，填补兵力缺口：@@动员预备役和地方武装，快速补齐前线兵力与战斗序列@@H:保障后方供给：@@动员国民经济与交通资源，确保弹药、燃油、粮食和医疗后勤持续供给@@H:进行全民防护：@@开展人民防空、疏散和医疗动员，降低平民伤亡与社会恐慌@@H:稳定舆论倾向：@@组织政治动员、舆论引导和心理战，巩固国内意志与国际话语权"},
+{q:"9. 作为高校大学生，应如何将个人成长发展与新时代国防建设深度融合（论述题）", a:"学业技能报国：把所学专业与国防需求对接。实践报国：坚持体能训练，锻炼意志，参加国防动员演练或国防志愿服务。服役报国：按需报名参军，投身一线保家卫国。传播国防观念：在校园传播国防意识，参与国防教育与科技宣传。"}
+]},
+{ id:"L12", title:"十二、核生化武器威胁及其防护", qs:[
+{q:"1. 核武器的杀伤破坏因素有哪些？", y:"2023秋 2025秋", a:"光辐射、冲击波、早期核辐射、核电磁脉冲、放射性沾染。"},
+{q:"2. 生物武器的危害主要有哪些特点？", a:"@@致病性强，杀伤程度严重@@污染和杀伤范围广@@具有传染性，使用隐蔽，难防难治@@无即时杀伤作用，危害时间长"},
+{q:"3. 化学武器按其毒害机理和作用，可以分为哪几类？", a:"分为6类：神经性毒剂、糜烂性毒剂、全身中毒性毒剂、窒息性毒剂、失能性毒剂、刺痛性毒剂。"},
+{q:"4. 我国面临的核生化威胁主要包括哪些？", a:"@@军事强国拥有强大的核化生武器库@@军事强国推进威慑战略@@国际公约难以制止核化生武器的发展@@核生化次生危害严重"},
+{q:"5. 我国应对核生化威胁的对策主要包括什么？", a:"@@增强防护意识@@建立防护体系@@搞好防护训练"}
+]},
+{ id:"L13", title:"十三、中国武装力量", qs:[
+{q:"1. 中国武装力量包括哪些？", a:'中国人民解放军、中国人民武装警察部队、中国民兵（"三结合"武装力量）。'},
+{q:"2. 中国人民解放军现役部队包括哪些？", y:"2024秋", a:'陆军、海军、空军、火箭军、军事航天部队、网络空间部队、信息支援部队、联勤保障部队。（军改后形成"四大军种+四大兵种"的新型军兵种结构布局。）'},
+{q:"3. 各军种成立的时间分别是什么？", a:"@@陆军：1927年8月1日（南昌起义）@@海军：1949年4月23日（成立于江苏）@@空军：1949年11月11日@@火箭军：2015年12月31日成立（前身为第二炮兵）"},
+{q:"4. 中国人民解放军陆军、海军、空军、火箭军的发展战略是什么？", y:"2025春 2023秋 2025秋", a:"陆军：机动作战、立体攻防。海军：近海防御、远海防卫。空军：空天一体、攻防兼备。火箭军：核常兼备、全域慑战。"},
+{q:'5. 新时代党和人民赋予中国武装力量的使命任务是什么（"四个战略支撑"）？', a:"为巩固中国共产党领导和社会主义制度提供战略支撑；为捍卫国家主权、统一、领土完整提供战略支撑；为维护国家海外利益提供战略支撑；为促进世界和平与发展提供战略支撑。"}
+]},
+{ id:"L14", title:"十四、日本基本军事情况", qs:[
+{q:"1. 日本武装力量主要由哪几部分组成？", a:"主要由现役部队、文职人员和预备部队三部分组成。"},
+{q:"2. 日本现役部队由哪几部分组成？", a:"由陆上自卫队、海上自卫队和航空自卫队三部分组成。"},
+{q:"3. 二战结束后，日本在1970年首次自主提出本国军事战略，名称是什么？", a:"专守防卫。"},
+{q:"4. 日本现行军事战略的名称是什么？有什么含义？实质是什么？", y:"2025春", a:"多域联合防卫。@@H:三层含义：@@一是确保日本的和平与安全；@@二是维护日本的国家利益；@@三是改善印太及全球安全保障环境。@@H:实质：@@是一种攻势防卫。"},
+{q:'5. 日本政府标榜的"无核三原则"是指什么？', a:"不制造、不拥有、不运进核武器。"},
+{q:"6. 日本强化日美军事同盟的主要战略意图是什么？", a:"@@依靠日美同盟，确保日本自身的安全@@依托日美同盟，介入和遏制地区危机@@借助日美同盟，主导全球安全事务，谋取更大利益"},
+{q:"7. 日本现行军事战略的发展走向对我国安全和利益有哪些重大影响？", y:"2024秋 2023秋 2025秋", a:"@@牵制我解决台湾问题，影响我祖国统一大业@@威胁我海上安全和海洋利益，压缩中国海疆战略缓冲@@竭力对我实施战略围堵，阻遏我国军力发展强大"}
+]},
+{ id:"L15", title:"十五、习近平强军思想", qs:[
+{q:"1. 简述党在新时代的强军目标主要内容。", y:"2024秋 2023秋 2025秋", a:"建设一支听党指挥、能打胜仗、作风优良的人民军队。@@H:三步走目标：@@到2027年实现建军一百年奋斗目标；@@到2035年基本实现国防和军队现代化；@@到本世纪中叶把人民军队建成世界一流军队。@@H:强军目标是习近平强军思想的理论源头：@@听党指挥是灵魂，决定军队的建设方向；@@能打胜仗是核心，反映军队的根本职能和军队建设的根本指向；@@作风优良是保证，关系军队的性质、宗旨、本色。"},
+{q:"2. 简述当代中国马克思主义的军事观和方法论的主要内容。", a:"坚持政治引领，坚持以武止戈，坚持积极进取，坚持统筹兼顾，坚持敢打必胜。"},
+{q:"3. 简述什么是中央军委主席负责制。", a:"中央军委主席负责中央军委全面工作，领导指挥全国武装力量，决定国防和军队建设一切重大问题。军委主席对我军重大问题最后拍板、一锤定音。@@H:贯彻军委主席负责制：@@必须作为最高政治要求来遵守；@@用最严的政治纪律来维护；@@切实做到听习主席指挥、对习主席负责、让习主席放心。"},
+{q:"4. 依法治军战略的主要内容是什么？", a:"@@坚持党对军队绝对领导@@坚持战斗力标准@@坚持建设中国特色军事法治体系@@坚持按照法治要求转变治军方式@@坚持从严治军铁律@@坚持抓住领导干部这个\"关键少数\"@@坚持官兵主体地位@@坚持贯彻全面依法治国要求"},
+{q:'5. 简述新时代政治建军方略的主要内容（"十个明确"）。', y:"2025春", a:"(1) 明确政治建军是人民军队立军之本；(2) 明确政治工作永远是我军的生命线；(3) 明确政治整训要突出政治上的正本清源；(4) 明确掌握思想领导是掌握一切领导的基础；(5) 明确党的力量来自组织、部队凝聚力战斗力来自组织；(6) 明确枪杆子要始终掌握在对党忠诚可靠的人手中；(7) 明确严才能正纲纪、严才能肃军威、严才能出战斗力；(8) 明确军中绝不能有腐败分子藏身之地；(9) 明确作风优良才能塑造英雄部队；(10) 明确军政军民团结是我军胜利法宝。"},
+{q:"6. 简述习近平强军思想战略布局的主要内容。", y:"2025春 2025秋", a:"政治建军、改革强军、科技强军、人才强军、依法治军。强军战略布局服务于强军目标的实现，而且是动态调整、不断完善的，对于提高国防和军队建设整体水平具有重大意义。"},
+{q:"7. 为什么要坚持和完善党对人民军队的绝对领导？", y:"2025春", a:"@@坚持党对人民军队的绝对领导，是中国特色社会主义的本质特征@@坚持党对人民军队的绝对领导，是党和国家的重要政治优势@@坚持党对人民军队的绝对领导，是人民军队的建军之本、强军之魂"},
+{q:'8. 习近平强军思想的科学内涵是什么（"十一个明确"）？', a:"(1) 明确党对人民军队的绝对领导是人民军队建军之本、强军之魂；(2) 明确强国必须强军；(3) 明确党在新时代的强军目标；(4) 明确军队是要准备打仗的；(5) 明确推进强军事业必须坚持政治建军、改革强军、科技强军、人才强军、依法治军；(6) 明确改革是强军的必由之路；(7) 明确科技是核心战斗力；(8) 明确强军之道要在得人；(9) 明确依法治军是我们党建军治军基本方式；(10) 明确军民融合是兴国之举、强军之策；(11) 明确作风优良是我军鲜明特色和政治优势。"}
+]},
+{ id:"L16", title:"附：2025年秋季学期论述题", qs:[
+{q:"我国九三阅兵的历史意义和现实意义是什么？（2025秋论述题）", y:"2025秋", a:"@@H:历史意义：@@纪念中国人民抗日战争暨世界反法西斯战争胜利70周年，缅怀先烈；@@展示中国共产党在抗日战争中的中流砥柱作用；@@彰显中华民族不屈不挠的伟大抗战精神。@@H:现实意义：@@展示国防和军队现代化建设成就，体现改革强军成果；@@宣示维护国家主权和领土完整的坚定决心；@@弘扬爱国主义精神，增强全民国防意识；@@展现中国作为负责任大国的国际形象，宣示维护世界和平的坚定立场。"}
+]}
+];
+
+// ====== STATE ======
+let mode = 'seq';
+let filterUnmastered = false;
+let allQuestions = [];
+let totalQ = 0;
+
+// Build flat question list
+function buildAllQuestions() {
+    allQuestions = [];
+    let qi = 0;
+    for (let l of lessons) {
+        for (let q of l.qs) {
+            qi++;
+            q._id = qi;
+            allQuestions.push({ ...q, lessonTitle: l.title, lessonId: l.id });
+        }
+    }
+    totalQ = allQuestions.length;
+}
+
+// ====== RENDER ======
+function buildNav() {
+    let html = '';
+    for (let l of lessons) {
+        html += `<a href="#${l.id}" data-id="${l.id}">${l.title}</a>`;
+    }
+    document.getElementById('nav').innerHTML = html;
+}
+
+function renderSeq() {
+    var html = '', qi = 0, shownCount = 0;
+    for (var li = 0; li < lessons.length; li++) {
+        var l = lessons[li];
+        var lessonCards = '';
+        for (var qi2 = 0; qi2 < l.qs.length; qi2++) {
+            var q = l.qs[qi2];
+            qi++;
+            if (filterUnmastered && isQMastered(getQid(q))) continue;
+            lessonCards += buildCard(q, qi, l.title);
+            shownCount++;
+        }
+        if (lessonCards) {
+            html += '<div class="lesson-head" id="' + l.id + '">' + l.title + '</div>' + lessonCards;
+        }
+    }
+    document.getElementById('content').innerHTML = html;
+    document.getElementById('content').dataset.mode = 'seq';
+    updateSubtitle(shownCount);
+}
+
+function renderRand() {
+    var candidates = filterUnmastered ? allQuestions.filter(function(q) { return !isQMastered(getQid(q)); }) : allQuestions.slice();
+    var shuffled = candidates.slice();
+    for (var i = shuffled.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
+    }
+    var html = '';
+    shuffled.forEach(function(q, i) {
+        html += buildCard(q, i + 1, q.lessonTitle);
+    });
+    document.getElementById('content').innerHTML = html;
+    document.getElementById('content').dataset.mode = 'rand';
+    updateSubtitle(shuffled.length);
+}
+
+function isQMastered(qid) {
+    return !!localStorage.getItem('junli_m_' + qid);
+}
+function getQid(q) { return q._id; }
+function buildCard(q, idx, lessonTitle) {
+    var qid = getQid(q);
+    var mastered = isQMastered(qid);
+    var y = q.y ? '<span class="q-years">[' + q.y + ']</span>' : '';
+    return '<div class="card' + (mastered ? ' mastered' : '') + '" data-qid="' + qid + '">' +
+        '<div class="q-header">' +
+            '<span class="q-num">' + idx + '</span>' +
+            '<span class="q-text">' + q.q + y + '</span>' +
+        '</div>' +
+        '<div class="q-meta">' +
+            '<span style="font-size:0.78rem;color:#999;">' + lessonTitle + '</span>' +
+            '<button class="btn-toggle" onclick="toggleAnswer(this)">显示解析</button>' +
+            '<label class="q-mastered" onclick="toggleMastered(this)" title="已掌握">' +
+                '<input type="checkbox"' + (mastered ? ' checked' : '') + '> 已掌握' +
+            '</label>' +
+        '</div>' +
+        '<div class="answer">' + formatAnswer(q.a) + '</div>' +
+    '</div>';
+}
+
+function formatAnswer(a) {
+    if (a.indexOf('@@') >= 0) {
+        var parts = a.split('@@').filter(function(p) { return p.trim(); });
+        var s = '', inList = false;
+        for (var i = 0; i < parts.length; i++) {
+            var p = parts[i].trim();
+            if (p.indexOf('H:') === 0) {
+                if (inList) { s += '</ul>'; inList = false; }
+                s += '<p><strong>' + p.substring(2) + '</strong></p><ul>';
+                inList = true;
+            } else if (inList) {
+                s += '<li>' + p + '</li>';
+            } else {
+                s += '<p>' + p + '</p>';
+            }
+        }
+        if (inList) s += '</ul>';
+        return s;
+    }
+    if (a.indexOf('；') >= 0) {
+        var parts = [], depth = 0, last = 0;
+        for (var i = 0; i < a.length; i++) {
+            if (a[i] === '（') depth++;
+            if (a[i] === '）') depth--;
+            if (a[i] === '；' && depth === 0) {
+                parts.push(a.slice(last, i).trim());
+                last = i + 1;
+            }
+        }
+        parts.push(a.slice(last).trim());
+        if (parts.length >= 3) {
+            s = '<ul>';
+            for (var j = 0; j < parts.length; j++) { s += '<li>' + parts[j] + '</li>'; }
+            return s + '</ul>';
+        }
+    }
+    return a;
+}
+
+function toggleMastered(el) {
+    var card = el.closest('.card');
+    var qid = card.dataset.qid;
+    if (isQMastered(qid)) {
+        localStorage.removeItem('junli_m_' + qid);
+        card.classList.remove('mastered');
+        el.querySelector('input').checked = false;
+    } else {
+        localStorage.setItem('junli_m_' + qid, '1');
+        card.classList.add('mastered');
+        el.querySelector('input').checked = true;
+    }
+}
+
+function toggleFilter() {
+    filterUnmastered = !filterUnmastered;
+    var btn = document.getElementById('btn-filter');
+    btn.classList.toggle('active', filterUnmastered);
+    btn.textContent = filterUnmastered ? '🔍 只显示未掌握 ✓' : '🔍 只显示未掌握';
+    localStorage.setItem('junli_filter', filterUnmastered ? '1' : '');
+    if (mode === 'seq') renderSeq(); else renderRand();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateSubtitle(count) {
+    var el = document.querySelector('.subtitle');
+    var filterMsg = filterUnmastered ? '（仅显示未掌握）' : '';
+    el.innerHTML = '北京大学2025级 · 共92道思考题 · 当前显示 <b>' + count + '</b> 道 ' + filterMsg + ' · 点击"显示解析"查看答案';
+}
+
+function toggleAnswer(btn) {
+    let card = btn.closest('.card');
+    let answer = card.querySelector('.answer');
+    if (answer.classList.contains('show')) {
+        answer.classList.remove('show');
+        btn.textContent = '显示解析';
+        btn.classList.remove('shown');
+    } else {
+        answer.classList.add('show');
+        btn.textContent = '隐藏解析';
+        btn.classList.add('shown');
+    }
+}
+
+function setMode(m) {
+    mode = m;
+    document.getElementById('btn-seq').classList.toggle('active', m === 'seq');
+    document.getElementById('btn-rand').classList.toggle('active', m === 'rand');
+    document.getElementById('btn-filter').classList.toggle('active', filterUnmastered);
+    if (m === 'seq') {
+        renderSeq();
+    } else {
+        renderRand();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    localStorage.setItem('junli_mode', m);
+}
+
+// Sidebar
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+}
+
+// Scroll spy
+function updateActiveNav() {
+    if (mode !== 'seq') return;
+    let navLinks = document.querySelectorAll('#nav a');
+    let headings = document.querySelectorAll('.lesson-head');
+    let closest = null;
+    let minDist = Infinity;
+    headings.forEach(h => {
+        let rect = h.getBoundingClientRect();
+        let dist = Math.abs(rect.top - 120);
+        if (dist < minDist) { minDist = dist; closest = h.id; }
+    });
+    navLinks.forEach(a => {
+        a.classList.toggle('active', a.dataset.id === closest);
+    });
+}
+
+// ====== INIT ======
+// Migrate old localStorage keys (using question text) to new numeric _id keys
+(function() {
+    var keys = Object.keys(localStorage);
+    var migrated = 0;
+    for (var k = 0; k < keys.length; k++) {
+        if (keys[k].indexOf('junli_m_') === 0) {
+            var val = localStorage.getItem(keys[k]);
+            // Old keys are long question text, new keys are short numbers
+            if (keys[k].length > 20) {
+                localStorage.removeItem(keys[k]);
+                migrated++;
+            }
+        }
+    }
+    if (migrated > 0) console.log('Migrated ' + migrated + ' old mastery keys');
+})();
+buildAllQuestions();
+buildNav();
+
+// Restore mode and filter
+var savedMode = localStorage.getItem('junli_mode') || 'seq';
+mode = savedMode;
+filterUnmastered = !!localStorage.getItem('junli_filter');
+document.getElementById('btn-seq').classList.toggle('active', mode === 'seq');
+document.getElementById('btn-rand').classList.toggle('active', mode === 'rand');
+var filterBtn = document.getElementById('btn-filter');
+filterBtn.classList.toggle('active', filterUnmastered);
+filterBtn.textContent = filterUnmastered ? '🔍 只显示未掌握 ✓' : '🔍 只显示未掌握';
+if (mode === 'seq') {
+    renderSeq();
+} else {
+    renderRand();
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+// Nav click
+document.getElementById('nav').addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+        e.preventDefault();
+        if (mode !== 'seq') {
+            setMode('seq');
+        }
+        let id = e.target.dataset.id;
+        let el = document.getElementById(id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (window.innerWidth <= 768) closeSidebar();
+    }
+});
+
+// Keyboard shortcut: Space to toggle first visible answer
+document.addEventListener('keydown', function(e) {
+    if (e.key === ' ' && e.target === document.body && !e.shiftKey && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        let cards = document.querySelectorAll('.card');
+        let top = window.scrollY + 60;
+        for (let card of cards) {
+            let rect = card.getBoundingClientRect();
+            if (rect.top + window.scrollY >= top) {
+                let btn = card.querySelector('.btn-toggle');
+                if (btn) toggleAnswer(btn);
+                break;
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                     

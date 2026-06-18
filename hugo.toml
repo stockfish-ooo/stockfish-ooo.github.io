@@ -11,15 +11,12 @@ theme = "PaperMod"
   math = true
   socialIcons = [
     {name = "github", url = "https://github.com/stockfish-ooo"},
-    {name = "zhihu", url = "https://www.zhihu.com/people/123456-81-42-65"}
+    {name = "zhihu", url = "https://www.zhihu.com/people/123456-81-42-65"},
   ]
 
 [params.homeInfoParams]
   Title = "Zhuocheng Zhu"
-  Content = """
-Biomedical Engineering / Applied Mathematics  
-Personal academic notes & learning archive
-"""
+  Content = "Biomedical Engineering / Applied Mathematics\nPersonal academic notes & learning archive\n"
 
 [menu]
 
@@ -37,6 +34,11 @@ Personal academic notes & learning archive
     name = "About"
     url = "/about/"
     weight = 3
+
+  [[menu.main]]
+    name = "Websites"
+    url = "/websites/"
+    weight = 4
 
 [markup]
   [markup.goldmark]
