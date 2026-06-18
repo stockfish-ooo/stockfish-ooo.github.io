@@ -19,7 +19,7 @@ theme = "PaperMod"
 [params.homeInfoParams]
   Title = "Zhuocheng Zhu"
   Content = "Biomedical Engineering / Applied Mathematics\nPersonal academic notes & learning archive\n"
-  imageUrl = "/images/25-12-boya-tower.jpg"
+  imageUrl = "/images/avatar.jpg"
   imageWidth = 140
   imageHeight = 140
 
