@@ -1,0 +1,39 @@
+{{- if or .Params.math site.Params.math -}}
+<script>
+(function () {
+    if (typeof katex === 'undefined') { return; }
+    var pattern = /\x5c\(([^]*?)\x5c\)/g;
+    function walk(el) {
+        var nodes = el.childNodes;
+        for (var i = 0; i < nodes.length; i++) {
+            var n = nodes[i];
+            if (n.nodeType === 3) {
+                var t = n.textContent;
+                pattern.lastIndex = 0;
+                var m = pattern.exec(t);
+                if (!m) { continue; }
+                var frag = document.createDocumentFragment();
+                var last = 0;
+                do {
+                    if (m.index > last) {
+                        frag.appendChild(document.createTextNode(t.slice(last, m.index)));
+                    }
+                    var span = document.createElement('span');
+                    try { katex.render(m[1], span, { throwOnError: false }); } catch (e) {}
+                    frag.appendChild(span);
+                    last = pattern.lastIndex;
+                } while ((m = pattern.exec(t)) !== null);
+                if (last < t.length) {
+                    frag.appendChild(document.createTextNode(t.slice(last)));
+                }
+                n.parentNode.replaceChild(frag, n);
+                i += frag.childNodes.length - 1;
+            } else if (n.nodeType === 1 && !/script|style|textarea|pre|code|noscript|iframe/i.test(n.nodeName)) {
+                walk(n);
+            }
+        }
+    }
+    walk(document.body);
+})();
+</script>
+{{- end -}}
